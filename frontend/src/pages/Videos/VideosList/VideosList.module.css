@@ -1,0 +1,329 @@
+/* src/pages/Videos/VideosList/VideosList.module.css - Updated with modern YouTube-inspired styling */
+.videosPage {
+  min-height: 100vh;
+  padding: var(--spacing-xl) 0;
+  background: transparent;
+}
+
+.header {
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-xl) 0;
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-sm) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.titleIcon {
+  color: #ff0000;
+  font-size: 2.2rem;
+}
+
+.subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-light);
+  margin: 0;
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+/* Search Card */
+.searchCard {
+  margin-bottom: var(--spacing-xl);
+  background: var(--color-card);
+  border: 2px solid rgba(255, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(255, 0, 0, 0.1);
+}
+
+.searchRow {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.searchInputWrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--color-card);
+  border: 2px solid rgba(255, 0, 0, 0.2);
+  border-radius: 25px;
+  padding: 4px;
+  box-shadow: 0 4px 20px rgba(255, 0, 0, 0.1);
+  transition: all var(--transition-normal);
+}
+
+.searchInputWrapper:focus-within {
+  border-color: #ff0000;
+  transform: scale(1.02);
+  box-shadow: 0 6px 25px rgba(255, 0, 0, 0.15);
+}
+
+.searchIcon {
+  position: absolute;
+  left: var(--spacing-lg);
+  color: #ff0000;
+  font-size: 1rem;
+  z-index: 1;
+  transition: all var(--transition-normal);
+}
+
+.searchInputWrapper:focus-within .searchIcon {
+  transform: scale(1.1);
+  color: #cc0000;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 14px 0 14px calc(var(--spacing-lg) * 2 + 16px);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  background: transparent;
+  color: var(--color-text);
+}
+
+.searchInput::placeholder {
+  color: #999;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: var(--color-card);
+  border: 1.5px solid rgba(255, 0, 0, 0.2);
+  border-radius: 20px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.tab:hover:not(:disabled) {
+  background: rgba(255, 0, 0, 0.1);
+  border-color: #ff0000;
+  transform: translateY(-2px);
+}
+
+.tab.active {
+  background: #ff0000;
+  color: #ffffff;
+  border-color: #ff0000;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+}
+
+.tab:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tabIcon {
+  font-size: 1.1rem;
+}
+
+.searchCount {
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: var(--font-size-xs);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  margin-left: var(--spacing-xs);
+  font-weight: 600;
+}
+
+/* Results Info */
+.resultsInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md) 0;
+  flex-wrap: wrap;
+}
+
+.resultsCount {
+  font-weight: 600;
+  color: var(--color-text);
+  font-size: var(--font-size-lg);
+}
+
+.searchTerm {
+  color: #ff0000;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.loadingText {
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+/* Videos Grid */
+.videosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+  animation: cardSlideUp 0.5s ease-out;
+}
+
+@keyframes cardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .videosGrid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .videosGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .searchRow {
+    flex-direction: column;
+  }
+
+  .searchInputWrapper {
+    width: 100%;
+  }
+}
+
+/* Load More */
+.loadMore {
+  text-align: center;
+  margin-top: var(--spacing-xl);
+}
+
+/* Skeleton Loading */
+.videoSkeleton {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  animation: pulse 1.5s infinite;
+}
+
+.skeletonThumbnail {
+  height: 180px;
+  background: var(--color-border);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.videoSkeleton .skeletonTitle {
+  height: 24px;
+  background: var(--color-border);
+  margin: var(--spacing-lg);
+  border-radius: var(--radius-sm);
+}
+
+.videoSkeleton .skeletonChannel {
+  height: 20px;
+  width: 60%;
+  background: var(--color-border);
+  margin: 0 var(--spacing-lg) var(--spacing-md);
+  border-radius: var(--radius-sm);
+}
+
+.videoSkeleton .skeletonMeta {
+  height: 16px;
+  width: 80%;
+  background: var(--color-border);
+  margin: 0 var(--spacing-lg);
+  border-radius: var(--radius-sm);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Empty State */
+.emptyState {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--spacing-2xl);
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.emptyContent {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.6;
+}
+
+.emptyTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.emptyDescription {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.6;
+  font-size: var(--font-size-base);
+}
+
+/* Dark Mode Support */
+[data-theme="dark"] .searchCard {
+  border-color: rgba(255, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(255, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .searchInputWrapper {
+  border-color: rgba(255, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .tab {
+  border-color: rgba(255, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .tab:hover:not(:disabled) {
+  background: rgba(255, 0, 0, 0.15);
+}

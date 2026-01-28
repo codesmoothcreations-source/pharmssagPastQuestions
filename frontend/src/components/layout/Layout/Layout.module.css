@@ -1,0 +1,254 @@
+/* Layout.module.css */
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+}
+
+/* Content Area */
+.content {
+  flex: 1;
+  padding: 2rem 0;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+/* Page Title */
+.pageTitle {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid rgba(34, 197, 94, 0.2);
+  position: relative;
+}
+
+.pageTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+/* Page Subtitle */
+.pageSubtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  margin: 0 0 2rem 0;
+  line-height: 1.5;
+}
+
+/* Content Sections */
+.contentSection {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.1);
+}
+
+.contentSection:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 992px) {
+  .content {
+    padding: 1.5rem 0;
+  }
+  
+  .pageTitle {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 1rem 0;
+  }
+  
+  .container {
+    padding: 0 0.75rem;
+  }
+  
+  .contentSection {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+  
+  .pageTitle {
+    font-size: 1.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 0.75rem 0;
+  }
+  
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  .contentSection {
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+  }
+  
+  .pageTitle {
+    font-size: 1.25rem;
+  }
+  
+  .pageSubtitle {
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Loading State */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+}
+
+.loadingText {
+  font-family: 'Josefin Sans', sans-serif;
+  color: #22c55e;
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+/* Error State */
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+  padding: 2rem;
+}
+
+.errorIcon {
+  font-size: 3rem;
+  color: #ef4444;
+  margin-bottom: 1rem;
+}
+
+.errorTitle {
+  font-family: 'Josefin Sans', sans-serif;
+  color: #111827;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.errorMessage {
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+  max-width: 400px;
+}
+
+/* Empty State */
+.emptyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  text-align: center;
+  padding: 2rem;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  color: #22c55e;
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+.emptyTitle {
+  font-family: 'Josefin Sans', sans-serif;
+  color: #111827;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.emptyMessage {
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+  max-width: 400px;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .layout {
+    background: linear-gradient(135deg, #0f172a 0%, #1f2937 100%);
+  }
+  
+  .contentSection {
+    background: #1f2937;
+    border-color: rgba(74, 222, 128, 0.1);
+  }
+  
+  .pageTitle {
+    color: #f9fafb;
+    border-bottom-color: rgba(74, 222, 128, 0.2);
+  }
+  
+  .pageTitle::after {
+    background: linear-gradient(90deg, #4ade80, #22c55e);
+  }
+  
+  .pageSubtitle {
+    color: #d1d5db;
+  }
+  
+  .loadingText {
+    color: #4ade80;
+  }
+  
+  .errorTitle,
+  .emptyTitle {
+    color: #f9fafb;
+  }
+  
+  .errorMessage,
+  .emptyMessage {
+    color: #d1d5db;
+  }
+  
+  .emptyIcon {
+    color: #4ade80;
+  }
+}

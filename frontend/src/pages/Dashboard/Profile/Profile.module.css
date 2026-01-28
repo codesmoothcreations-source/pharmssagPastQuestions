@@ -1,0 +1,276 @@
+/* Profile.module.css */
+
+.profile {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: inherit;
+  }
+  
+  /* Header Section */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1a202c;
+    margin: 0;
+  }
+  
+  .headerActions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  /* Content Layout */
+  .content {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+    align-items: start;
+  }
+  
+  /* Left Column - Main Info */
+  .profileCard {
+    padding: 2.5rem !important;
+    background: #fff;
+    border-radius: 1.25rem;
+    border: 1px solid #edf2f7;
+  }
+  
+  .profileHeader {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px dashed #e2e8f0;
+  }
+  
+  .avatar {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #1ca65c, #27d078);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    box-shadow: 0 10px 20px rgba(28, 166, 92, 0.2);
+  }
+  
+  .userName {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin: 0;
+    color: #1a202c;
+  }
+  
+  .userEmail {
+    color: #718096;
+    margin: 0.2rem 0 0.5rem 0;
+  }
+  
+  .userRole {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: #f0fff4;
+    color: #276749;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 2rem;
+  }
+  
+  /* Profile Detail Items */
+  .profileDetails {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  
+  .detailItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .detailIcon {
+    font-size: 1.2rem;
+    color: #1ca65c;
+    margin-top: 0.2rem;
+  }
+  
+  .detailContent {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .detailLabel {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #a0aec0;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+  }
+  
+  .detailValue {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2d3748;
+  }
+  
+  .editInput, .editSelect {
+    width: 100%;
+    margin-top: 0.25rem;
+  }
+  
+  .editSelect {
+    padding: 0.6rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    font-family: inherit;
+    font-weight: 600;
+  }
+  
+  /* Right Column - Stats & Activity */
+  .rightColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .statsCard, .activityCard {
+    padding: 1.5rem !important;
+  }
+  
+  .statsTitle, .activityTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #1a202c;
+  }
+  
+  .statsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .statItem {
+    background: #f8fafc;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .statIcon {
+    font-size: 1.2rem;
+  }
+  
+  .statInfo {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .statValue {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #1ca65c;
+  }
+  
+  .statLabel {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #718096;
+  }
+  
+  /* Activity List */
+  .activityList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  
+  .activityItem {
+    display: flex;
+    gap: 1rem;
+    position: relative;
+  }
+  
+  /* Timeline line */
+  .activityItem:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 40px;
+    bottom: -15px;
+    width: 2px;
+    background: #edf2f7;
+  }
+  
+  .activityIcon {
+    width: 36px;
+    height: 36px;
+    background: white;
+    border: 1px solid #edf2f7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    z-index: 1;
+  }
+  
+  .activityInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  
+  .activityText {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4a5568;
+    line-height: 1.4;
+  }
+  
+  .activityTime {
+    font-size: 0.75rem;
+    color: #a0aec0;
+  }
+  
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .content {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .profileHeader {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+    .profileDetails {
+      grid-template-columns: 1fr;
+    }
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+  }

@@ -1,0 +1,131 @@
+/* LoginPrompt.module.css */
+
+/* Login Prompt Card */
+.loginPrompt {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+  border: 2px solid rgba(34, 197, 94, 0.2);
+}
+
+/* Content Container */
+.content {
+  padding: 2rem;
+}
+
+/* Lock Icon */
+.lockIcon {
+  font-size: 3rem;
+  color: #22c55e;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+/* Title */
+.title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.75rem 0;
+}
+
+/* Message */
+.message {
+  color: #6b7280;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Actions Container */
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+/* Features List */
+.features {
+  background: rgba(34, 197, 94, 0.05);
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 1px solid rgba(34, 197, 94, 0.1);
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #374151;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.feature:last-child {
+  margin-bottom: 0;
+}
+
+.featureIcon {
+  color: #22c55e;
+  font-size: 1.125rem;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .content {
+    padding: 1.5rem;
+  }
+  
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .actions a {
+    width: 100%;
+  }
+  
+  .lockIcon {
+    font-size: 2.5rem;
+  }
+  
+  .title {
+    font-size: 1.25rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .loginPrompt {
+    background: linear-gradient(135deg, #1f2937 0%, rgba(34, 197, 94, 0.05) 100%);
+    border-color: rgba(74, 222, 128, 0.2);
+  }
+  
+  .title {
+    color: #f9fafb;
+  }
+  
+  .message {
+    color: #d1d5db;
+  }
+  
+  .lockIcon {
+    color: #4ade80;
+  }
+  
+  .features {
+    background: rgba(74, 222, 128, 0.05);
+    border-color: rgba(74, 222, 128, 0.1);
+  }
+  
+  .feature {
+    color: #e5e7eb;
+  }
+  
+  .featureIcon {
+    color: #4ade80;
+  }
+}

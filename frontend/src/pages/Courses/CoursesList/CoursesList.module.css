@@ -1,0 +1,359 @@
+/* src/pages/Courses/CoursesList/CoursesList.module.css - Modern Pharmacy Green Theme */
+.courses {
+  padding: var(--spacing-xl) 0;
+  min-height: 100vh;
+  background: transparent;
+}
+
+.header {
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-xl) 0;
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-light);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Filter Card */
+.filterCard {
+  margin-bottom: var(--spacing-xl);
+  background: var(--color-card);
+  border: 1px solid rgba(34, 197, 94, 0.1);
+  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.08);
+}
+
+.searchRow {
+  margin-bottom: var(--spacing-lg);
+}
+
+.searchInputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: var(--spacing-md);
+  color: var(--color-primary);
+  font-size: 1rem;
+  z-index: 1;
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md) calc(var(--spacing-md) * 2 + 16px);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  border: 1.5px solid rgba(34, 197, 94, 0.2);
+  border-radius: var(--radius-lg);
+  background: var(--color-card);
+  color: var(--color-text);
+  transition: all var(--transition-fast);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+.searchInput::placeholder {
+  color: #999;
+}
+
+/* Filters Row */
+.filtersRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.filterLabel {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.levelButtons,
+.semesterButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.levelButton,
+.semesterButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1.5px solid rgba(34, 197, 94, 0.2);
+  border-radius: var(--radius-md);
+  background: var(--color-card);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.levelButton:hover,
+.semesterButton:hover {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.levelButton.active,
+.semesterButton.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.levelCount {
+  font-size: var(--font-size-xs);
+  opacity: 0.8;
+}
+
+.filterActions {
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Stats Overview */
+.statsOverview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.levelStat {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all var(--transition-normal);
+}
+
+.levelStat:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.15);
+}
+
+.levelStatHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.levelBadge {
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: white;
+}
+
+.level100 {
+  background: #3b82f6;
+}
+
+.level200 {
+  background: #10b981;
+}
+
+.level300 {
+  background: #f59e0b;
+}
+
+.level400 {
+  background: #ef4444;
+}
+
+.courseCount {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  font-weight: 500;
+}
+
+.levelStatDetails {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+
+.statDetail {
+  text-align: center;
+}
+
+.statLabel {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-xs);
+}
+
+.statValue {
+  display: block;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* Courses Grid */
+.coursesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+  .coursesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .filtersRow {
+    grid-template-columns: 1fr;
+  }
+
+  .levelButtons,
+  .semesterButtons {
+    flex-direction: column;
+  }
+
+  .levelButton,
+  .semesterButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Skeleton Loading */
+.courseSkeleton {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-lg);
+  animation: pulse 1.5s infinite;
+}
+
+.skeletonHeader {
+  height: 60px;
+  background: var(--color-border);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.skeletonTitle {
+  height: 24px;
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.skeletonMeta {
+  height: 20px;
+  width: 60%;
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.skeletonStats {
+  height: 40px;
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Empty State */
+.emptyState {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--spacing-2xl);
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.emptyContent {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.5;
+}
+
+.emptyTitle {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.emptyDescription {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.6;
+}
+
+/* Dark Mode Support */
+[data-theme="dark"] .filterCard {
+  border-color: rgba(74, 222, 128, 0.2);
+  box-shadow: 0 4px 20px rgba(74, 222, 128, 0.05);
+}
+
+[data-theme="dark"] .levelStat {
+  border-color: rgba(74, 222, 128, 0.1);
+}
+
+[data-theme="dark"] .levelButton,
+[data-theme="dark"] .semesterButton {
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+[data-theme="dark"] .levelButton:hover,
+[data-theme="dark"] .semesterButton:hover {
+  background: rgba(74, 222, 128, 0.15);
+}

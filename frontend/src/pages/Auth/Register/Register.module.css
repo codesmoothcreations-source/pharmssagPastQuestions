@@ -1,0 +1,123 @@
+/* Register.module.css */
+
+.registerPage {
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  min-height: 100vh;
+}
+
+/* LEFT INFO SIDE */
+.infoSide {
+  background: linear-gradient(135deg, #1ca65c 0%, #064e3b 100%);
+  color: white;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.floatingBrand {
+  font-weight: 800;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 5rem;
+}
+
+.infoContent { max-width: 500px; margin: auto 0; }
+
+.title { font-size: 3.5rem; font-weight: 900; line-height: 1; }
+.title span { color: #6ee7b7; }
+.subtitle { font-size: 1.15rem; opacity: 0.85; margin: 1.5rem 0 3rem; line-height: 1.6; }
+
+.featureGrid { display: grid; gap: 1.5rem; }
+.featItem { display: flex; gap: 1rem; align-items: flex-start; }
+.featIcon { color: #6ee7b7; font-size: 1.2rem; margin-top: 3px; }
+.featItem strong { display: block; font-size: 1.1rem; }
+.featItem p { font-size: 0.9rem; opacity: 0.7; }
+
+/* RIGHT FORM SIDE */
+.formSide {
+  background-color: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.formWrapper { width: 100%; max-width: 550px; }
+
+.formHeader { margin-bottom: 2rem; }
+.formHeader h2 { font-size: 2rem; font-weight: 800; color: #1e293b; margin-bottom: 0.4rem; }
+.formHeader p { color: #64748b; font-weight: 500; }
+
+.mainForm { display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* Grid for fields like Name/Email to save space */
+.inputGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.errorBox {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 0.8rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-left: 4px solid #dc2626;
+}
+
+.eye { background: none; border: none; color: #94a3b8; cursor: pointer; display: flex; padding: 0.5rem; }
+
+/* PASSWORD STRENGTH METER */
+.strengthWrapper { margin-top: 0.5rem; }
+.strengthMeta { font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 0.4rem; }
+
+.strengthBar {
+  display: flex;
+  gap: 0.4rem;
+  height: 6px;
+}
+
+.segment {
+  flex: 1;
+  background: #e2e8f0;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+/* Strength Colors */
+.label1, .active1 { color: #ef4444 !important; background: #ef4444; } /* Weak */
+.label2, .active2 { color: #f59e0b !important; background: #f59e0b; } /* Fair */
+.label3, .active3 { color: #3b82f6 !important; background: #3b82f6; } /* Good */
+.label4, .active4 { color: #10b981 !important; background: #10b981; } /* Excellent */
+
+.registerBtn {
+  background: #1ca65c !important;
+  height: 3.5rem !important;
+  border-radius: 1rem !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  margin-top: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(28, 166, 92, 0.2);
+}
+
+.loginSwitch { text-align: center; margin-top: 1rem; color: #64748b; font-weight: 500; }
+.loginSwitch a { color: #1ca65c; font-weight: 700; text-decoration: none; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .gridContainer { grid-template-columns: 1fr; }
+  .infoSide { display: none; }
+  .inputGrid { grid-template-columns: 1fr; }
+} 

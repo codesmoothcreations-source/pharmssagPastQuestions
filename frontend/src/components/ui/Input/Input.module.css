@@ -1,0 +1,184 @@
+/* Input.module.css */
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-family: 'Josefin Sans', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* Label Styles */
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-left: 0.2rem;
+  transition: color 0.3s ease;
+}
+
+/* Input Container */
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--color-card);
+  border-radius: 0.85rem;
+  border: 1.5px solid var(--color-border);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.inputWrapper:focus-within {
+  border-color: #1ca65c;
+  background: var(--color-bg);
+  box-shadow: 0 0 0 4px rgba(28, 166, 92, 0.15);
+  transform: translateY(-1px);
+}
+
+.inputWrapper:hover:not(:focus-within) {
+  border-color: rgba(28, 166, 92, 0.4);
+}
+
+/* Input Field */
+.input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  outline: none;
+  line-height: 1.5;
+}
+
+.input::placeholder {
+  color: var(--color-text-light);
+  opacity: 0.6;
+}
+
+/* Icon Styles */
+.leftIcon,
+.rightIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-light);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  width: 2.5rem;
+}
+
+.inputWrapper:focus-within .leftIcon,
+.inputWrapper:focus-within .rightIcon {
+  color: #1ca65c;
+}
+
+.withLeftIcon { padding-left: 0.25rem; }
+.withRightIcon { padding-right: 0.25rem; }
+
+/* Error State */
+.hasError .label { color: #ef4444; }
+
+.hasError .inputWrapper {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.02);
+}
+
+.hasError .inputWrapper:focus-within {
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+}
+
+.hasError .leftIcon,
+.hasError .rightIcon {
+  color: #ef4444;
+}
+
+/* Helper Text */
+.helperText {
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+  margin-left: 0.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.errorText {
+  color: #ef4444;
+  font-weight: 500;
+}
+
+.defaultText {
+  color: var(--color-text-light);
+}
+
+/* Size Variants */
+.small .input { padding: 0.5rem 0.75rem; font-size: 0.85rem; }
+.large .input { padding: 1.1rem 1.25rem; font-size: 1.05rem; }
+
+/* Ghost Variant */
+.ghost .inputWrapper {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.ghost .inputWrapper:hover:not(:focus-within) {
+  background: var(--color-bg);
+}
+
+/* Disabled State */
+.isDisabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.isDisabled .inputWrapper {
+  background: var(--color-bg);
+  border-color: var(--color-border);
+}
+
+/* Shimmer Loading Animation */
+.loading .inputWrapper {
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.loading .inputWrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(28, 166, 92, 0.08),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .input {
+    font-size: 16px; /* Prevents iOS auto-zoom on focus */
+    padding: 0.9rem 1rem;
+  }
+  
+  .inputWrapper {
+    border-radius: 0.75rem;
+  }
+}

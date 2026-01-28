@@ -1,0 +1,265 @@
+/* Login.module.css */
+
+.loginPage {
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  min-height: 100vh;
+}
+
+/* BRANDING SIDE (Left) */
+.brandingSide {
+  background: linear-gradient(135deg, #1ca65c 0%, #065f46 100%);
+  color: white;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle pattern overlay */
+.brandingSide::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+}
+
+.logoHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.pillIcon { font-size: 2rem; }
+
+.heroText {
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-top: 2rem;
+}
+
+.heroText span {
+  color: #86efac; /* Lighter medical green */
+}
+
+.heroSubtext {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  max-width: 500px;
+  margin: 1.5rem 0 3rem 0;
+}
+
+.valueList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.valueList li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.valueList svg {
+  color: #86efac;
+}
+
+.brandingFooter {
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+/* FORM SIDE (Right) */
+.formSide {
+  background-color: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.formWrapper {
+  width: 100%;
+  max-width: 440px;
+}
+
+.authCard {
+  padding: 3rem !important;
+  border-radius: 2rem !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08) !important;
+  border: none !important;
+  background: white !important;
+}
+
+.authHeader h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a202c;
+  margin-bottom: 0.5rem;
+}
+
+.authHeader p {
+  color: #64748b;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.errorBanner {
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  color: #dc2626;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.mainForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.eyeBtn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+}
+
+.formMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.rememberBox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  color: #475569;
+}
+
+.forgotLink {
+  color: #1ca65c;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.submitBtn {
+  background-color: #1ca65c !important;
+  border-radius: 1rem !important;
+  font-weight: 700 !important;
+  height: 3.5rem !important;
+  font-size: 1.1rem !important;
+}
+
+.demoMode {
+  background: #f1f5f9;
+  border: 1px dashed #cbd5e0;
+  color: #475569;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.demoMode:hover {
+  background: #e2e8f0;
+  color: #1ca65c;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.divider span { padding: 0 1rem; }
+
+.createAccountBtn {
+  text-align: center;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: white;
+  border: 1.5px solid #e2e8f0;
+  color: #1a202c;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.createAccountBtn:hover {
+  border-color: #1ca65c;
+  color: #1ca65c;
+  background: #f0fdf4;
+}
+
+.formFooter {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.formFooter a {
+  color: #64748b;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* RESPONSIVE: On mobile, hide the branding and center the form */
+@media (max-width: 1024px) {
+  .gridContainer {
+    grid-template-columns: 1fr;
+  }
+  .brandingSide {
+    display: none;
+  }
+  .formSide {
+    padding: 1.5rem;
+  }
+  .authCard {
+    padding: 2rem !important;
+  }
+}

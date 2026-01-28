@@ -1,0 +1,252 @@
+/* src/components/ui/Card/Card.module.css */
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Padding Variants */
+.small {
+  padding: 16px;
+}
+
+.medium {
+  padding: 24px;
+}
+
+.large {
+  padding: 32px;
+}
+
+/* Hover Effects */
+.hoverable {
+  cursor: pointer;
+}
+
+.hoverable:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.12),
+    0 4px 8px rgba(0, 0, 0, 0.08);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.hoverable:active {
+  transform: translateY(-2px);
+  transition-duration: 0.1s;
+}
+
+/* Subtle gradient overlay on hover */
+.hoverable::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.02) 0%,
+    rgba(59, 130, 246, 0) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.hoverable:hover::before {
+  opacity: 1;
+}
+
+/* Card Sections */
+.header {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e5e7eb;
+  position: relative;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 2px;
+  opacity: 0.7;
+}
+
+.body {
+  margin-bottom: 20px;
+}
+
+.footer {
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid #f3f4f6;
+}
+
+/* Focus States for Accessibility */
+.card:focus-within {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+}
+
+/* Loading/Skeleton State */
+.card.loading {
+  background: linear-gradient(
+    90deg,
+    #f9fafb 25%,
+    #f3f4f6 50%,
+    #f9fafb 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-color: #f3f4f6;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Glassmorphism Variant */
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+/* Elevation Levels */
+.elevation-1 {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.elevation-2 {
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.elevation-3 {
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark Mode Excellence */
+@media (prefers-color-scheme: dark) {
+  .card {
+    background: #1f2937;
+    border-color: #374151;
+    box-shadow: 
+      0 2px 8px rgba(0, 0, 0, 0.2),
+      0 1px 2px rgba(0, 0, 0, 0.15);
+  }
+  
+  .glass {
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(16px);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .header {
+    border-bottom-color: #374151;
+  }
+  
+  .header::after {
+    background: linear-gradient(90deg, #60a5fa, #a78bfa);
+  }
+  
+  .footer {
+    border-top-color: #374151;
+  }
+  
+  .hoverable:hover {
+    border-color: rgba(96, 165, 250, 0.3);
+  }
+  
+  .loading {
+    background: linear-gradient(
+      90deg,
+      #111827 25%,
+      #1f2937 50%,
+      #111827 75%
+    );
+    background-size: 200% 100%;
+  }
+}
+
+/* Mobile-First Excellence */
+@media (max-width: 768px) {
+  .small {
+    padding: 12px;
+  }
+  
+  .medium {
+    padding: 18px;
+  }
+  
+  .large {
+    padding: 24px;
+  }
+  
+  .header {
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .footer {
+    padding-top: 16px;
+    margin-top: 16px;
+  }
+  
+  .hoverable:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+  
+  .hoverable:hover {
+    transform: none;
+  }
+  
+  .loading {
+    animation: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .card {
+    box-shadow: none;
+    border: 1px solid #d1d5db;
+    break-inside: avoid;
+  }
+  
+  .hoverable:hover {
+    transform: none;
+  }
+}
+
+/* Interactive Elements Inside Card */
+.card a,
+.card button {
+  position: relative;
+  z-index: 1;
+}
