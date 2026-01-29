@@ -51,6 +51,8 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(requestLogger);
 
 // Root route
+
+// this is where the frontend will be served 
 app.get('/', (req, res) => {
     res.status(200).json({
         success: true,

@@ -89,6 +89,16 @@ export default function Register() {
 
         {/* Form Section */}
         <section className={styles.formSide}>
+        {/* Mobile Branding (only shows on mobile) */}
+        <div className={styles.mobileBrand}>
+            <div className={styles.mobileLogo}>
+            <FaLeaf className={styles.mobileLogoIcon} />
+            <span className={styles.mobileLogoName}>Pharmssage</span>
+            </div>
+            <h2>Start Your Academic Journey</h2>
+            <p>Create your account in seconds</p>
+        </div>
+  
           <div className={styles.formWrapper}>
             <Card className={styles.glassCard}>
               <header className={styles.header}>

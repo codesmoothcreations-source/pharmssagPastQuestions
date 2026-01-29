@@ -104,7 +104,7 @@ export default function AdminDashboard() {
 
   const quickActions = [
     { title: 'Upload Question', description: 'Add new past question', icon: <FaCloudUploadAlt />, action: () => navigate('/upload-question'), color: '#10b981' },
-    { title: 'Manage Users', description: 'View and edit users', icon: <FaUserShield />, action: () => setActiveTab('users'), color: '#3b82f6' },
+    { title: 'Manage Users', description: 'View and edit users', icon: <FaUserShield />, action: () => navigate('/admin/users'), color: '#3b82f6' },
     { title: 'System Settings', description: 'Configure platform', icon: <FaCog />, action: () => navigate('/admin/settings'), color: '#6b7280' },
     { title: 'View Analytics', description: 'See detailed reports', icon: <FaChartLine />, action: () => setActiveTab('analytics'), color: '#8b5cf6' }
   ]

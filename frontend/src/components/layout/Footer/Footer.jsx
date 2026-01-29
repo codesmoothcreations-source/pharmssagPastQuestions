@@ -67,27 +67,15 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Resources */}
-          <div className={styles.linksSection}>
-            <h3 className={styles.sectionTitle}>Resources</h3>
-            <div className={styles.links}>
-              {links.slice(4).map((link) => (
-                <Link key={link.path} to={link.path} className={styles.link}>
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
           {/* Contact Info */}
           <div className={styles.contactSection}>
             <h3 className={styles.sectionTitle}>Contact Us</h3>
             <div className={styles.contactInfo}>
               <p className={styles.contactItem}>
-                📧 support@pharmssage.com
+                📧 koomsonezra6@gmail.com
               </p>
               <p className={styles.contactItem}>
-                📞 +234 800 000 0000
+                📞 +233 055 160 3553
               </p>
               <p className={styles.contactItem}>
                 🏛️ Pharmacy Department, University Campus

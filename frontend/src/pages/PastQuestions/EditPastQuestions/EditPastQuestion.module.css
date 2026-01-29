@@ -1,123 +1,689 @@
+/* ===== EDIT PAST QUESTION - MODERN DESIGN ===== */
 .editContainer {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 40px 20px;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+    padding: 1.5rem 1rem;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+  
+  /* Header */
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .backBtn {
+    align-self: flex-start;
+    color: #666;
+    background: rgba(28, 166, 92, 0.05);
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+  }
+  
+  .backBtn:hover {
+    background: rgba(28, 166, 92, 0.1);
+    transform: translateX(-4px);
+    color: #1ca65c;
   }
   
   .titleArea {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-top: 10px;
+    gap: 1rem;
   }
   
   .leafIcon {
-    color: #10b981;
     font-size: 2rem;
+    color: #1ca65c;
+    animation: gentlePulse 2s infinite ease-in-out;
   }
   
   .titleArea h1 {
-    color: #064e3b;
-    font-weight: 800;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a1a1a;
     margin: 0;
   }
   
+  /* Content Grid */
   .contentGrid {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 30px;
-    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Form Section */
+  .formSection {
+    flex: 2;
+    min-width: 0;
   }
   
   .editCard {
-    padding: 30px !important;
-    border-radius: 20px !important;
-    border: 1px solid #d1fae5 !important;
-    box-shadow: 0 15px 35px rgba(5, 150, 105, 0.05) !important;
+    background: #ffffff;
+    border: 1px solid rgba(28, 166, 92, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(28, 166, 92, 0.08);
+    animation: slideUp 0.6s ease-out 0.2s both;
   }
   
+  .editCard:hover {
+    box-shadow: 0 12px 40px rgba(28, 166, 92, 0.12);
+  }
+  
+  /* Input Groups */
   .inputGroup {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    margin-bottom: 1.5rem;
   }
   
   .inputGroup label {
+    display: block;
+    font-size: 0.875rem;
     font-weight: 600;
-    color: #374151;
-    font-size: 0.9rem;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
   }
   
-  .inputGroup input, .inputGroup select, .inputGroup textarea {
-    padding: 12px;
-    border: 2px solid #e5e7eb;
+  .inputGroup input,
+  .inputGroup select,
+  .inputGroup textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: #f8fff8;
+    border: 1px solid rgba(28, 166, 92, 0.2);
     border-radius: 12px;
-    transition: all 0.2s;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.95rem;
+    color: #1a1a1a;
+    transition: all 0.3s ease;
   }
   
-  .inputGroup input:focus {
-    border-color: #10b981;
+  .inputGroup input:focus,
+  .inputGroup select:focus,
+  .inputGroup textarea:focus {
     outline: none;
-    background-color: #f0fdf4;
+    border-color: #1ca65c;
+    box-shadow: 0 0 0 3px rgba(28, 166, 92, 0.1);
+    background: #ffffff;
   }
   
+  .inputGroup input::placeholder,
+  .inputGroup textarea::placeholder {
+    color: #999;
+  }
+  
+  .inputGroup textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.5;
+  }
+  
+  /* Row Layout */
   .row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
   }
   
+  /* Error States */
+  .errorInput {
+    border-color: #ef4444 !important;
+    background: rgba(239, 68, 68, 0.05) !important;
+  }
+  
+  .errorText {
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  
+  /* File Section */
   .fileSection {
-    background: #f8fafc;
-    padding: 20px;
-    border-radius: 15px;
-    margin: 20px 0;
-    border: 1px dashed #cbd5e1;
+    background: rgba(28, 166, 92, 0.05);
+    border: 1px dashed rgba(28, 166, 92, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+  
+  .fileSection label:first-child {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
   }
   
   .currentFile {
     display: flex;
     align-items: center;
-    gap: 10px;
-    color: #059669;
-    font-weight: 500;
-    margin-bottom: 15px;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid rgba(28, 166, 92, 0.1);
+    margin-bottom: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .currentFile svg {
+    color: #1ca65c;
+    font-size: 1.25rem;
   }
   
   .replaceBtn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: white;
-    border: 2px solid #10b981;
-    color: #10b981;
-    padding: 8px 16px;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #1ca65c, #22c16b);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
     border-radius: 10px;
-    cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.875rem;
     font-weight: 600;
-    transition: 0.2s;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
   }
   
   .replaceBtn:hover {
-    background: #10b981;
-    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(28, 166, 92, 0.3);
+  }
+  
+  .replaceBtn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.7s ease;
+  }
+  
+  .replaceBtn:hover::before {
+    left: 100%;
+  }
+  
+  /* Actions */
+  .actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(28, 166, 92, 0.1);
   }
   
   .saveBtn {
-    background: #059669 !important;
-    width: 100%;
-    height: 50px !important;
+    background: linear-gradient(135deg, #1ca65c, #22c16b) !important;
+    color: white !important;
+    border: none !important;
+    padding: 1rem 2rem !important;
+    font-weight: 600 !important;
     font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .saveBtn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 25px rgba(28, 166, 92, 0.3) !important;
+  }
+  
+  .saveBtn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.7s ease;
+  }
+  
+  .saveBtn:hover::before {
+    left: 100%;
+  }
+  
+  /* Info Sidebar */
+  .infoSidebar {
+    flex: 1;
+    min-width: 0;
   }
   
   .tipCard {
-    background: #064e3b !important;
-    color: #ecfdf5 !important;
-    border-radius: 15px !important;
+    background: linear-gradient(135deg, rgba(28, 166, 92, 0.1), rgba(34, 193, 107, 0.1));
+    border: 1px solid rgba(28, 166, 92, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    animation: slideUp 0.6s ease-out 0.4s both;
+    position: sticky;
+    top: 2rem;
   }
   
-  @media (max-width: 768px) {
-    .contentGrid { grid-template-columns: 1fr; }
-    .row { grid-template-columns: 1fr; }
+  .tipCard h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1ca65c;
+    margin: 0 0 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .tipCard h3::before {
+    content: '💡';
+    font-size: 1.25rem;
+  }
+  
+  .tipCard p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+    font-size: 0.95rem;
+  }
+  
+  /* Loader */
+  .loader {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: #1ca65c;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+    font-family: 'Josefin Sans', sans-serif;
+    animation: gentlePulse 2s infinite ease-in-out;
+  }
+  
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes gentlePulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+  
+  @keyframes borderGlow {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(28, 166, 92, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 20px 5px rgba(28, 166, 92, 0.2);
+    }
+  }
+  
+  /* ===== RESPONSIVE DESIGN ===== */
+  
+  /* Small Phones (≤ 480px) */
+  @media (max-width: 480px) {
+    .editContainer {
+      padding: 1rem;
+    }
+    
+    .editCard {
+      padding: 1.5rem;
+      border-radius: 16px;
+    }
+    
+    .titleArea h1 {
+      font-size: 1.5rem;
+    }
+    
+    .leafIcon {
+      font-size: 1.5rem;
+    }
+    
+    .inputGroup input,
+    .inputGroup select,
+    .inputGroup textarea {
+      padding: 0.75rem 0.875rem;
+      font-size: 0.9rem;
+    }
+    
+    .actions {
+      flex-direction: column;
+    }
+    
+    .actions button {
+      width: 100%;
+    }
+    
+    .tipCard {
+      position: static;
+    }
+  }
+  
+  /* Tablet (≥ 768px) */
+  @media (min-width: 768px) {
+    .editContainer {
+      padding: 2rem;
+    }
+    
+    .header {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .contentGrid {
+      flex-direction: row;
+      gap: 3rem;
+    }
+    
+    .row {
+      flex-direction: row;
+      gap: 1.5rem;
+    }
+    
+    .row .inputGroup {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    
+    .titleArea h1 {
+      font-size: 2rem;
+    }
+    
+    .editCard {
+      padding: 2.5rem;
+    }
+    
+    .tipCard {
+      padding: 2rem;
+    }
+    
+    .tipCard h3 {
+      font-size: 1.25rem;
+    }
+  }
+  
+  /* Desktop (≥ 1024px) */
+  @media (min-width: 1024px) {
+    .editContainer {
+      padding: 3rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .titleArea h1 {
+      font-size: 2.25rem;
+    }
+    
+    .editCard {
+      border-radius: 24px;
+      animation: borderGlow 3s infinite ease-in-out;
+    }
+    
+    .inputGroup label {
+      font-size: 1rem;
+    }
+    
+    .inputGroup input,
+    .inputGroup select,
+    .inputGroup textarea {
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+    }
+    
+    .tipCard {
+      border-radius: 20px;
+    }
+  }
+  
+  /* Large Desktop (≥ 1440px) */
+  @media (min-width: 1440px) {
+    .editContainer {
+      padding: 4rem 2rem;
+    }
+    
+    .contentGrid {
+      gap: 4rem;
+    }
+    
+    .editCard {
+      padding: 3rem;
+    }
+    
+    .tipCard {
+      padding: 2.5rem;
+    }
+  }
+  
+  /* ===== MODERN ENHANCEMENTS ===== */
+  
+  /* Glass morphism effect */
+  .editCard {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  /* Custom select styling */
+  .inputGroup select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 3rem;
+  }
+  
+  /* File input styling */
+  input[type="file"] {
+    cursor: pointer;
+  }
+  
+  /* Hover effects for interactive elements */
+  .inputGroup input:hover,
+  .inputGroup select:hover,
+  .inputGroup textarea:hover {
+    border-color: #1ca65c;
+  }
+  
+  /* ===== DARK MODE SUPPORT ===== */
+  @media (prefers-color-scheme: dark) {
+    .editContainer {
+      background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
+    }
+    
+    .titleArea h1 {
+      color: #ffffff;
+    }
+    
+    .editCard {
+      background: rgba(34, 34, 34, 0.9);
+      border-color: rgba(28, 166, 92, 0.2);
+    }
+    
+    .inputGroup label {
+      color: #ffffff;
+    }
+    
+    .inputGroup input,
+    .inputGroup select,
+    .inputGroup textarea {
+      background: #333;
+      border-color: rgba(28, 166, 92, 0.3);
+      color: #ffffff;
+    }
+    
+    .inputGroup input:focus,
+    .inputGroup select:focus,
+    .inputGroup textarea:focus {
+      background: #3a3a3a;
+    }
+    
+    .currentFile {
+      background: #333;
+      border-color: rgba(28, 166, 92, 0.2);
+      color: #cccccc;
+    }
+    
+    .fileSection {
+      background: rgba(28, 166, 92, 0.1);
+      border-color: rgba(28, 166, 92, 0.3);
+    }
+    
+    .tipCard {
+      background: linear-gradient(135deg, rgba(28, 166, 92, 0.15), rgba(34, 193, 107, 0.15));
+      border-color: rgba(28, 166, 92, 0.3);
+    }
+    
+    .tipCard p {
+      color: #cccccc;
+    }
+    
+    .backBtn {
+      background: rgba(28, 166, 92, 0.1);
+      color: #cccccc;
+    }
+    
+    .backBtn:hover {
+      background: rgba(28, 166, 92, 0.2);
+      color: #22c16b;
+    }
+  }
+  
+  /* ===== ACCESSIBILITY ===== */
+  @media (prefers-reduced-motion: reduce) {
+    .editContainer * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    
+    .saveBtn:hover,
+    .replaceBtn:hover,
+    .backBtn:hover {
+      transform: none !important;
+    }
+  }
+  
+  /* Focus states for keyboard navigation */
+  .inputGroup input:focus-visible,
+  .inputGroup select:focus-visible,
+  .inputGroup textarea:focus-visible,
+  .saveBtn:focus-visible,
+  .replaceBtn:focus-visible,
+  .backBtn:focus-visible {
+    outline: 2px solid #1ca65c;
+    outline-offset: 2px;
+  }
+  
+  /* ===== PRINT STYLES ===== */
+  @media print {
+    .editContainer {
+      background: white !important;
+      padding: 0;
+    }
+    
+    .backBtn,
+    .replaceBtn,
+    .actions button,
+    .tipCard {
+      display: none;
+    }
+    
+    .editCard {
+      box-shadow: none !important;
+      border: 1px solid #ddd !important;
+      page-break-inside: avoid;
+    }
+    
+    .titleArea h1 {
+      color: #000 !important;
+    }
+    
+    .contentGrid {
+      flex-direction: column;
+    }
+  }
+  
+  /* ===== SCROLLBAR STYLING ===== */
+  @media (min-width: 768px) {
+    textarea::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    textarea::-webkit-scrollbar-track {
+      background: #f8fff8;
+      border-radius: 4px;
+    }
+    
+    textarea::-webkit-scrollbar-thumb {
+      background: rgba(28, 166, 92, 0.3);
+      border-radius: 4px;
+    }
+    
+    textarea::-webkit-scrollbar-thumb:hover {
+      background: rgba(28, 166, 92, 0.5);
+    }
+  }
+  
+  /* ===== LOADING STATE ENHANCEMENT ===== */
+  .loader::after {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: #1ca65c;
+    border-radius: 50%;
+    margin-left: 8px;
+    animation: loadingDots 1.5s infinite;
+  }
+  
+  @keyframes loadingDots {
+    0%, 20% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(0);
+    }
   }

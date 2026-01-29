@@ -1,12 +1,17 @@
-// src/pages/Home/Home.jsx - Updated for backend
-import React, { useMemo } from 'react' // Add useMemo if using it
+// src/pages/Home/Home.jsx
+import React from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../../components/layout/Layout/Layout'
 import Card from '../../components/ui/Card/Card'
 import Button from '../../components/ui/Button/Button'
 import CourseCard from '../../components/cards/CourseCard/CourseCard'
 import { useCourses } from '../../hooks/useCourses'
-import { FaSearch, FaBookMedical, FaVideo, FaUsers } from 'react-icons/fa'
+import {
+  FaSearch,
+  FaBookMedical,
+  FaVideo,
+  FaUsers
+} from 'react-icons/fa'
 import styles from './Home.module.css'
 
 export default function Home() {
@@ -14,143 +19,184 @@ export default function Home() {
 
   const features = [
     {
-      icon: <FaBookMedical />,
+      icon: <FaBookMedical aria-hidden />,
       title: 'Comprehensive Past Questions',
-      description: 'Access past exam papers from all pharmacy levels and courses'
+      description:
+        'Access past exam papers from all pharmacy levels and courses'
     },
     {
-      icon: <FaVideo />,
+      icon: <FaVideo aria-hidden />,
       title: 'Educational Videos',
-      description: 'Learn from curated pharmacy tutorials and lectures'
+      description:
+        'Learn from curated pharmacy tutorials and lectures'
     },
     {
-      icon: <FaSearch />,
+      icon: <FaSearch aria-hidden />,
       title: 'Advanced Search',
-      description: 'Quickly find resources by course, year, or keyword'
+      description:
+        'Quickly find resources by course, year, or keyword'
     },
     {
-      icon: <FaUsers />,
+      icon: <FaUsers aria-hidden />,
       title: 'Community Driven',
-      description: 'Contribute and help fellow pharmacy students succeed'
+      description:
+        'Contribute and help fellow pharmacy students succeed'
     }
   ]
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className={styles.hero}>
-        <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>
-            Welcome to <span className={styles.highlight}>Pharmssage</span>
-          </h1>
-          <p className={styles.heroSubtitle}>
-            Your comprehensive platform for pharmacy past questions, 
-            study materials, and educational resources
-          </p>
-          <div className={styles.heroButtons}>
-            <Button size="large" variant="primary" as={Link} to="/courses">
-              Browse Courses
-            </Button>
-            <Button size="large" variant="outline" as={Link} to="/past-questions">
-              View Past Questions
-            </Button>
-          </div>
-        </div>
-      </section>
+      <main className={styles.home}>
+        {/* Hero */}
+        <section className={styles.hero}>
+          <div className={styles.heroContent}>
+            <h1 className={styles.heroTitle}>
+              Welcome to <span className={styles.highlight}>Pharmssage</span>
+            </h1>
 
-      {/* Features Section */}
-      <section className={styles.section}>
-        <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>Why Choose Pharmssage?</h2>
-          <p className={styles.sectionSubtitle}>
-            Everything you need to excel in your pharmacy studies
-          </p>
-        </div>
-        <div className={styles.features}>
-          {features.map((feature, index) => (
-            <div key={index} className={styles.feature}>
-              <div className={styles.featureIcon}>
-                {feature.icon}
-              </div>
-              <h3 className={styles.featureTitle}>{feature.title}</h3>
-              <p className={styles.featureDescription}>{feature.description}</p>
+            <p className={styles.heroSubtitle}>
+              A calm, reliable space for pharmacy past questions,
+              study materials, and academic resources.
+            </p>
+
+            <div className={styles.heroActions}>
+              <Button
+                variant="primary"
+                size="large"
+                as={Link}
+                to="/courses"
+              >
+                Browse Courses
+              </Button>
+
+              <Button
+                variant="outline"
+                size="large"
+                as={Link}
+                to="/past-questions"
+              >
+                View Past Questions
+              </Button>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Popular Courses Section */}
-      <section className={styles.section}>
-        <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>Popular Courses</h2>
-          <p className={styles.sectionSubtitle}>
-            Browse our most accessed pharmacy courses
-          </p>
-        </div>
-        
-        {error ? (
-          <div className={styles.errorMessage}>
-            <p>Unable to load courses. Please try again later.</p>
           </div>
-        ) : (
-          <>
-            <div className={styles.coursesGrid}>
-              {isLoading ? (
-                Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className={styles.courseSkeleton}>
-                    <div className={styles.skeletonHeader}></div>
-                    <div className={styles.skeletonTitle}></div>
-                    <div className={styles.skeletonMeta}></div>
-                    <div className={styles.skeletonStats}></div>
-                  </div>
-                ))
-              ) : courses.length === 0 ? (
-                <div className={styles.noCourses}>
-                  <p>No courses available yet. Check back soon!</p>
+        </section>
+
+        {/* Features */}
+        <section className={styles.section}>
+          <header className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>
+              Why Choose Pharmssage?
+            </h2>
+            <p className={styles.sectionSubtitle}>
+              Designed for focus, speed, and academic success
+            </p>
+          </header>
+
+          <div className={styles.featuresGrid}>
+            {features.map((feature, index) => (
+              <article key={index} className={styles.featureCard}>
+                <div className={styles.featureIcon}>
+                  {feature.icon}
                 </div>
-              ) : (
-                courses.slice(0, 6).map(course => (
-                  <CourseCard key={course._id || course.id} course={course} />
-                ))
-              )}
-            </div>
-            
-            {courses.length > 0 && (
-              <div className={styles.centered}>
-                <Button variant="primary" size="large" as={Link} to="/courses">
-                  View All Courses
-                </Button>
-              </div>
-            )}
-          </>
-        )}
-      </section>
-
-      {/* Stats Section */}
-      <section className={styles.statsSection}>
-        <Card className={styles.statsCard}>
-          <div className={styles.stats}>
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>500+</span>
-              <span className={styles.statLabel}>Past Questions</span>
-            </div>
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>100+</span>
-              <span className={styles.statLabel}>Courses</span>
-            </div>
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>50+</span>
-              <span className={styles.statLabel}>Video Tutorials</span>
-            </div>
-            {(
-              <div className={styles.stat}>
-                <span className={styles.statNumber}>1000+</span>
-                <span className={styles.statLabel}>Students</span>
-              </div>
-            )}
+                <h3 className={styles.featureTitle}>
+                  {feature.title}
+                </h3>
+                <p className={styles.featureDescription}>
+                  {feature.description}
+                </p>
+              </article>
+            ))}
           </div>
-        </Card>
-      </section>
+        </section>
+
+        {/* Courses */}
+        <section className={styles.section}>
+          <header className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>
+              Popular Courses
+            </h2>
+            <p className={styles.sectionSubtitle}>
+              Most accessed pharmacy courses
+            </p>
+          </header>
+
+          {error && (
+            <div
+              className={styles.stateMessage}
+              role="alert"
+            >
+              Unable to load courses. Please try again later.
+            </div>
+          )}
+
+          {!error && (
+            <>
+              <div className={styles.coursesGrid}>
+                {isLoading &&
+                  Array.from({ length: 6 }).map((_, i) => (
+                    <div key={i} className={styles.courseSkeleton} />
+                  ))}
+
+                {!isLoading && courses.length === 0 && (
+                  <div className={styles.stateMessage}>
+                    No courses available yet.
+                  </div>
+                )}
+
+                {!isLoading &&
+                  courses.map(course => (
+                    <Link
+                      key={course._id || course.id}
+                      to={`/courses/${course.slug || course._id}`}
+                      className={styles.courseLink}
+                      aria-label={`View ${course.title} course`}
+                    >
+                      <CourseCard course={course} />
+                    </Link>
+                  ))}
+              </div>
+
+
+              {courses.length > 0 && (
+                <div className={styles.centerAction}>
+                  <Button
+                    variant="primary"
+                    size="large"
+                    as={Link}
+                    to="/courses"
+                  >
+                    View All Courses
+                  </Button>
+                </div>
+              )}
+            </>
+          )}
+        </section>
+
+        {/* Stats */}
+        <section className={styles.statsSection}>
+          <Card className={styles.statsCard}>
+            <div className={styles.statsGrid}>
+              <div className={styles.stat}>
+                <strong>500+</strong>
+                <span>Past Questions</span>
+              </div>
+              <div className={styles.stat}>
+                <strong>100+</strong>
+                <span>Courses</span>
+              </div>
+              <div className={styles.stat}>
+                <strong>50+</strong>
+                <span>Video Tutorials</span>
+              </div>
+              <div className={styles.stat}>
+                <strong>1000+</strong>
+                <span>Students</span>
+              </div>
+            </div>
+          </Card>
+        </section>
+      </main>
     </Layout>
   )
 }

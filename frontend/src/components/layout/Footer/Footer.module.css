@@ -259,3 +259,409 @@
 [data-theme="dark"] .copyrightText {
   color: #9ca3af;
 }
+
+/* ===== LAYOUT COMPONENT - MODERN DESIGN ===== */
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fff8 50%, #f0f9ff 100%);
+  font-family: 'Josefin Sans', sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Smooth scroll behavior for the entire app */
+.layout {
+  scroll-behavior: smooth;
+}
+
+/* Modern gradient background with subtle animation */
+.layout::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(28, 166, 92, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(28, 166, 92, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(28, 166, 92, 0.01) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Main content area */
+.content {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  padding-top: 0;
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Container for content */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+/* Modern scrollbar styling */
+.layout::-webkit-scrollbar {
+  width: 10px;
+}
+
+.layout::-webkit-scrollbar-track {
+  background: rgba(28, 166, 92, 0.05);
+  border-radius: 10px;
+}
+
+.layout::-webkit-scrollbar-thumb {
+  background: rgba(28, 166, 92, 0.2);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.layout::-webkit-scrollbar-thumb:hover {
+  background: rgba(28, 166, 92, 0.3);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ===== MODERN EFFECTS ===== */
+
+/* Page transition effect */
+.layout > * {
+  animation: slideUp 0.4s ease-out;
+}
+
+/* Glass morphism effect for content areas */
+.container > * {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Smooth hover transitions */
+.layout a,
+.layout button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(28, 166, 92, 0.3);
+  color: #1a1a1a;
+}
+
+::-moz-selection {
+  background: rgba(28, 166, 92, 0.3);
+  color: #1a1a1a;
+}
+
+/* Focus ring styling */
+:focus-visible {
+  outline: 2px solid #1ca65c;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Small Phones (≤ 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .content {
+    padding-top: 0;
+  }
+  
+  /* Adjust scrollbar for mobile */
+  .layout::-webkit-scrollbar {
+    width: 6px;
+  }
+}
+
+/* Tablet (≥ 768px) */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
+  
+  .content {
+    padding-top: 0;
+  }
+}
+
+/* Desktop (≥ 1024px) */
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 3rem;
+  }
+}
+
+/* Large Desktop (≥ 1440px) */
+@media (min-width: 1440px) {
+  .container {
+    padding: 0 4rem;
+  }
+}
+
+/* Ultra-wide screens (≥ 1920px) */
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1600px;
+  }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+  .layout {
+    background: linear-gradient(135deg, #1a1a1a 0%, #1a2a1a 50%, #0f1a1a 100%);
+    color: #ffffff;
+  }
+  
+  .layout::before {
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(28, 166, 92, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(28, 166, 92, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(28, 166, 92, 0.02) 0%, transparent 50%);
+  }
+  
+  .layout::-webkit-scrollbar-track {
+    background: rgba(28, 166, 92, 0.1);
+  }
+  
+  .layout::-webkit-scrollbar-thumb {
+    background: rgba(28, 166, 92, 0.3);
+  }
+  
+  .layout::-webkit-scrollbar-thumb:hover {
+    background: rgba(28, 166, 92, 0.4);
+  }
+  
+  ::selection {
+    background: rgba(28, 166, 92, 0.5);
+    color: #ffffff;
+  }
+  
+  ::-moz-selection {
+    background: rgba(28, 166, 92, 0.5);
+    color: #ffffff;
+  }
+}
+
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .layout {
+    scroll-behavior: auto;
+  }
+  
+  .layout *,
+  .layout *::before,
+  .layout *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Hardware acceleration for smoother animations */
+.content,
+.container {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .layout {
+    background: white !important;
+  }
+  
+  .layout::before {
+    display: none;
+  }
+  
+  .content {
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+  
+  /* Hide scrollbar in print */
+  .layout::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ===== LOADING STATES ===== */
+.layout.loading .content {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ===== ERROR STATES ===== */
+.layout.error {
+  background: linear-gradient(135deg, #fff8f8 0%, #fff0f0 100%);
+}
+
+/* ===== FIXED FOR MODAL OVERLAYS ===== */
+.layout.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== UTILITY CLASSES FOR SPECIFIC PAGES ===== */
+.layout.page-home .content {
+  padding-top: 0;
+}
+
+.layout.page-dashboard .content {
+  padding-top: 0;
+}
+
+.layout.page-admin .content {
+  padding-top: 0;
+}
+
+/* ===== CUSTOM PROPERTIES FOR THEME ===== */
+.layout {
+  --primary-green: #1ca65c;
+  --primary-green-hover: #22c16b;
+  --primary-green-light: #e8f7ef;
+  --bg-white: #ffffff;
+  --bg-off-white: #f8fff8;
+  --bg-light-green: #f0f9ff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #666;
+  --text-muted: #999;
+  --shadow-sm: 0 2px 8px rgba(28, 166, 92, 0.08);
+  --shadow-md: 0 4px 16px rgba(28, 166, 92, 0.12);
+  --shadow-lg: 0 8px 24px rgba(28, 166, 92, 0.15);
+}
+
+/* ===== SMOOTH PAGE TRANSITIONS ===== */
+.layout-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.layout-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.layout-exit {
+  opacity: 1;
+}
+
+.layout-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* ===== GRID BACKGROUND PATTERN (Subtle) ===== */
+.layout::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(28, 166, 92, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28, 166, 92, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+/* Dark mode adjustment for grid */
+@media (prefers-color-scheme: dark) {
+  .layout::after {
+    background-image: 
+      linear-gradient(rgba(28, 166, 92, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(28, 166, 92, 0.05) 1px, transparent 1px);
+  }
+}
+
+/* ===== MOBILE-SPECIFIC ENHANCEMENTS ===== */
+
+/* Prevent text size adjustment on orientation change */
+@media screen and (max-width: 768px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
+/* Improve touch targets on mobile */
+@media (max-width: 768px) {
+  .layout a,
+  .layout button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Optimize for very small screens */
+@media (max-width: 360px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+}
+
+/* Fix for iOS Safari viewport height */
+@supports (-webkit-touch-callout: none) {
+  .layout {
+    min-height: -webkit-fill-available;
+  }
+}

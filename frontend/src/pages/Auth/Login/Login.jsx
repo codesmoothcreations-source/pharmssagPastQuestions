@@ -4,7 +4,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { FaUser, FaLock, FaEye, FaEyeSlash, FaCheckCircle, FaFlask, FaArrowRight } from 'react-icons/fa'
+import { FaUser, FaLock, FaEye, FaEyeSlash, FaCheckCircle, FaFlask, FaArrowRight, FaLeaf } from 'react-icons/fa'
 
 import Card from '../../../components/ui/Card/Card'
 import Button from '../../../components/ui/Button/Button'
@@ -24,12 +24,10 @@ export default function Login() {
   const navigate = useNavigate()
   const location = useLocation()
   
-  // Destructure loginLoading to control button state
   const { login, loginLoading, user } = useAuth()
   
   const from = location.state?.from?.pathname || '/dashboard'
 
-  // If user is already logged in, redirect them immediately
   useEffect(() => {
     if (user) navigate(from, { replace: true })
   }, [user, navigate, from])
@@ -43,7 +41,6 @@ export default function Login() {
     try {
       setLoginError('')
       await login(data)
-      // Navigation is often handled by useEffect above, but we keep this as a backup
       navigate(from, { replace: true })
     } catch (error) {
       console.error("Login Error:", error)
@@ -62,43 +59,21 @@ export default function Login() {
     <div className={styles.loginPage}>
       <div className={styles.gridContainer}>
         
-        {/* Left Side: Branding & Value Proposition */}
-        <section className={styles.brandingSide}>
-          <div className={styles.glassOverlay}></div>
-          <div className={styles.brandingContent}>
-            <div className={styles.logoHeader}>
-              <div className={styles.logoIcon}>
-                <FaFlask />
-              </div>
-              <span className={styles.logoName}>Pharmssage</span>
-            </div>
-            
-            <h1 className={styles.heroText}>
-              Elevating <br />
-              <span>Pharmacy Education.</span>
-            </h1>
-            
-            <p className={styles.heroSubtext}>
-              Access the most comprehensive database of pharmaceutical past questions, 
-              expert-led tutorials, and precision analytics.
-            </p>
-
-            <ul className={styles.valueList}>
-              <li><FaCheckCircle className={styles.check} /> <span>5,000+ Exam Questions</span></li>
-              <li><FaCheckCircle className={styles.check} /> <span>Detailed Video Solutions</span></li>
-              <li><FaCheckCircle className={styles.check} /> <span>Offline Access Capability</span></li>
-            </ul>
+        {/* Mobile Branding Header (only shows on mobile) */}
+        <div className={styles.mobileBrand}>
+          <div className={styles.mobileLogo}>
+            <FaLeaf className={styles.mobileLogoIcon} />
+            <span className={styles.mobileLogoName}>Pharmssage</span>
           </div>
-          <div className={styles.brandingFooter}>
-            © 2026 Pharmssage Platform. Precision in Learning.
-          </div>
-        </section>
+          <h2>Welcome Back</h2>
+          <p>Sign in to continue your journey</p>
+        </div>
 
-        {/* Right Side: Auth Form */}
+        {/* Form Section */}
         <section className={styles.formSide}>
           <div className={styles.formWrapper}>
-            <Card className={styles.authCard}>
-              <header className={styles.authHeader}>
+            <Card className={styles.glassCard}>
+              <header className={styles.header}>
                 <h2>Welcome Back</h2>
                 <p>Sign in to continue your journey</p>
               </header>
@@ -109,13 +84,13 @@ export default function Login() {
                 </div>
               )}
 
-              <form onSubmit={handleSubmit(onSubmit)} className={styles.mainForm}>
+              <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                 <Input
                   label="Email Address"
                   {...register('email')}
                   error={errors.email?.message}
                   placeholder="name@university.edu"
-                  leftIcon={<FaUser className={styles.inputIcon} />}
+                  leftIcon={<FaUser className={styles.greenIcon} />}
                   autoFocus
                 />
 
@@ -126,7 +101,7 @@ export default function Login() {
                     {...register('password')}
                     error={errors.password?.message}
                     placeholder="••••••••"
-                    leftIcon={<FaLock className={styles.inputIcon} />}
+                    leftIcon={<FaLock className={styles.greenIcon} />}
                     rightIcon={
                       <button 
                         type="button" 
@@ -153,19 +128,12 @@ export default function Login() {
                 <Button
                   type="submit"
                   variant="primary"
-                  size="large"
                   loading={loginLoading}
                   fullWidth
                   className={styles.submitBtn}
                 >
                   Sign In <FaArrowRight className={styles.btnIcon} />
                 </Button>
-
-                {import.meta.env.DEV && (
-                  <button type="button" onClick={handleQuickFill} className={styles.demoMode}>
-                    <FaFlask /> Use Demo Account
-                  </button>
-                )} 
 
                 <div className={styles.divider}>
                   <span>OR</span>
@@ -176,10 +144,37 @@ export default function Login() {
                 </Link>
               </form>
             </Card>
+          </div>
+        </section>
+
+        {/* Branding Section (hidden on mobile, shows on tablet+) */}
+        <section className={styles.brandingSide}>
+          <div className={styles.brandingContent}>
+            <div className={styles.logoHeader}>
+              <div className={styles.logoIcon}>
+                <FaLeaf />
+              </div>
+              <span className={styles.logoName}>Pharmssage</span>
+            </div>
             
-            <footer className={styles.formFooter}>
-              Secure connection verified. <Link to="/privacy">Privacy Policy</Link>
-            </footer>
+            <h1 className={styles.heroText}>
+              Elevating <br />
+              <span>Pharmacy Education.</span>
+            </h1>
+            
+            <p className={styles.heroSubtext}>
+              Access the most comprehensive database of pharmaceutical past questions, 
+              expert-led tutorials, and precision analytics.
+            </p>
+
+            <ul className={styles.valueList}>
+              <li><FaCheckCircle className={styles.check} /> <span>5,000+ Exam Questions</span></li>
+              <li><FaCheckCircle className={styles.check} /> <span>Detailed Video Solutions</span></li>
+              <li><FaCheckCircle className={styles.check} /> <span>Offline Access Capability</span></li>
+            </ul>
+          </div>
+          <div className={styles.brandingFooter}>
+            © 2026 Pharmssage Platform. Precision in Learning.
           </div>
         </section>
       </div>
