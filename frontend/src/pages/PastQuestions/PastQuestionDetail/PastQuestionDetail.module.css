@@ -453,3 +453,137 @@
   }
 }
 
+.previewColumn {
+  width: 100%;
+  max-width: 500px;
+}
+
+.greenCard {
+  border: 1px solid #d1fae5 !important;
+  border-radius: 20px !important;
+  padding: 24px !important;
+  background: white !important;
+  box-shadow: 0 10px 30px rgba(5, 150, 105, 0.08) !important;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.header h3 {
+  color: #064e3b;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.iconCircle {
+  background: #10b981;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.displayArea {
+  background: #f8fafc;
+  border: 2px dashed #e2e8f0;
+  border-radius: 15px;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.previewImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.pdfWrapper {
+  width: 100%;
+  height: 400px;
+  position: relative;
+}
+
+.previewIframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.noPreview {
+  text-align: center;
+  color: #94a3b8;
+  padding: 20px;
+}
+
+.pulseIcon {
+  font-size: 3rem;
+  color: #d1fae5;
+  margin-bottom: 10px;
+  animation: pulse 2s infinite;
+}
+
+.actionArea {
+  margin-top: 20px;
+}
+
+.fileInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #f0fdf4;
+  border-radius: 10px;
+}
+
+.fileBadge {
+  background: #059669;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.fileName {
+  font-size: 0.85rem;
+  color: #064e3b;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.greenBtn {
+  background: #059669 !important;
+  font-weight: 700 !important;
+  border-radius: 12px !important;
+  height: 48px !important;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+

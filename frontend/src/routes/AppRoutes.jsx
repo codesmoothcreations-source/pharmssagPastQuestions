@@ -14,6 +14,7 @@ const CourseDetail = React.lazy(() => import('../pages/Courses/CourseDetail/Cour
 const PastQuestionsList = React.lazy(() => import('../pages/PastQuestions/PastQuestionsList/PastQuestionsList'))
 const PastQuestionDetail = React.lazy(() => import('../pages/PastQuestions/PastQuestionDetail/PastQuestionDetail'))
 const UploadPastQuestion = React.lazy(() => import('../pages/PastQuestions/UploadPastQuestion/UploadPastQuestion'))
+const EditPastQuestion = React.lazy(() => import('../pages/PastQuestions/EditPastQuestions/EditPastQuestion'))
 const VideosList = React.lazy(() => import('../pages/Videos/VideosList/VideosList'))
 const VideoDetail = React.lazy(() => import('../pages/Videos/VideoDetail/VideoDetail'))
 const StudentDashboard = React.lazy(() => import('../pages/Dashboard/StudentDashboard/StudentDashboard'))
@@ -55,6 +56,12 @@ export default function AppRoutes() {
       <Route path="/past-questions/:id" element={
         <ProtectedRoute>
           <PastQuestionDetail />
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/edit-questions/:id" element={
+        <ProtectedRoute>
+          <EditPastQuestion />
         </ProtectedRoute>
       } />
       

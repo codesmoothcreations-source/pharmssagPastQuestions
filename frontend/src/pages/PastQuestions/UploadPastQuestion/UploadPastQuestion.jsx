@@ -18,8 +18,15 @@ const fileSchema = z.object({
   file: z.instanceof(File)
     .refine((file) => file.size <= 10 * 1024 * 1024, 'File size must be less than 10MB')
     .refine(
-      (file) => ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'].includes(file.type),
-      'Only PDF, JPEG, and PNG files are allowed'
+      (file) => [
+        'application/pdf', 
+        'application/msword', // .doc
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+        'image/jpeg', 
+        'image/png', 
+        'image/jpg'
+      ].includes(file.type),
+      'Only PDF, Word documents, and Images are allowed'
     )
 });
 
@@ -124,14 +131,16 @@ export default function UploadPastQuestion() {
   const getFileIcon = () => {
     if (!file) return <FaUpload />;
     if (file.type === 'application/pdf') return <FaFilePdf />;
+    if (file.type.includes('word') || file.type.includes('officedocument')) return <FaFileWord />; // Add FaFileWord
     if (file.type.includes('image')) return <FaImage />;
     return <FaUpload />;
   };
 
   const getFileTypeColor = () => {
     if (!file) return '#6c757d';
-    if (file.type === 'application/pdf') return '#dc3545';
-    if (file.type.includes('image')) return '#28a745';
+    if (file.type === 'application/pdf') return '#e11d48'; // Medical Red
+    if (file.type.includes('word')) return '#2563eb'; // Doc Blue
+    if (file.type.includes('image')) return '#059669'; // Pharmacy Green
     return '#6c757d';
   };
 
@@ -312,7 +321,7 @@ export default function UploadPastQuestion() {
                         name="file" // Name attribute for clarity
                         className={styles.fileInput}
                         onChange={handleFileChange}
-                        accept=".pdf,.jpg,.jpeg,.png"
+                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                         style={{ display: 'none' }} // Hide the default ugly button
                       />
                       

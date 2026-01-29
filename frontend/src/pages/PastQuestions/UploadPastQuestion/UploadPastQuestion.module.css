@@ -321,3 +321,68 @@
   background: rgba(220, 53, 69, 0.1);
   border: 1px solid var(--color-danger)
 }
+
+
+/* Container and Card */
+.uploadCard {
+  border: 1px solid #d1fae5 !important;
+  border-radius: 24px !important;
+  box-shadow: 0 10px 40px rgba(5, 150, 105, 0.05) !important;
+  padding: 30px !important;
+}
+
+/* The Upload Dash Box */
+.uploadArea {
+  border: 2px dashed #10b981; /* Pharmacy Green */
+  background: #f0fdf4;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.uploadArea:hover {
+  background: #dcfce7;
+  border-color: #059669;
+}
+
+.uploadIcon {
+  background: #10b981;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+/* Sidebar Guidelines */
+.guidelinesCard {
+  background: #064e3b !important; /* Dark Forest Green */
+  color: #ecfdf5 !important;
+  border-radius: 20px !important;
+}
+
+.guidelinesTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #34d399;
+  font-size: 1.1rem;
+}
+
+.guidelinesList li {
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+}
+
+/* Submit Button */
+.formActions button[type="submit"] {
+  background: #059669 !important;
+  padding: 12px 30px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px;
+}

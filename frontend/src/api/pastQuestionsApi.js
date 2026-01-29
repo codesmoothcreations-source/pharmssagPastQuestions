@@ -27,8 +27,26 @@ export const pastQuestionsApi = {
     })
   },
 
-  update: (id, data) =>
-    axiosClient.put(`/past-questions/${id}`, data),
+  update: (id, data) => {
+    let updateData = data;
+  
+    // If we are sending a file, we MUST use FormData
+    if (!(data instanceof FormData) && data.file) {
+      updateData = new FormData();
+      Object.keys(data).forEach((key) => {
+        updateData.append(key, data[key]);
+      });
+    }
+  
+    return axiosClient.put(`/past-questions/${id}`, updateData, {
+      headers: {
+        // This tells the server to expect a file if updateData is FormData
+        'Content-Type': updateData instanceof FormData 
+          ? 'multipart/form-data' 
+          : 'application/json'
+      }
+    });
+  },
 
   delete: (id) =>
     axiosClient.delete(`/past-questions/${id}`),

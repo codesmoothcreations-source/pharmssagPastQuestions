@@ -1,123 +1,168 @@
-/* Register.module.css */
-
 .registerPage {
   min-height: 100vh;
-  background-color: #fff;
+  background: #f0fdf4; /* Very light mint */
+  display: flex;
 }
 
 .gridContainer {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  min-height: 100vh;
+  grid-template-columns: 0.7fr 1.3fr;
+  width: 100%;
 }
 
-/* LEFT INFO SIDE */
-.infoSide {
-  background: linear-gradient(135deg, #1ca65c 0%, #064e3b 100%);
+.brandingSide {
+  background: linear-gradient(135deg, #064e3b 0%, #059669 100%);
   color: white;
-  padding: 4rem;
+  padding: 60px;
   display: flex;
   flex-direction: column;
-  position: relative;
+  justify-content: space-between;
 }
 
-.floatingBrand {
-  font-weight: 800;
-  font-size: 1.2rem;
+.logoHeader {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 5rem;
+  gap: 12px;
 }
 
-.infoContent { max-width: 500px; margin: auto 0; }
+.logoIcon {
+  background: #10b981;
+  padding: 10px;
+  border-radius: 12px;
+  display: flex;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
 
-.title { font-size: 3.5rem; font-weight: 900; line-height: 1; }
-.title span { color: #6ee7b7; }
-.subtitle { font-size: 1.15rem; opacity: 0.85; margin: 1.5rem 0 3rem; line-height: 1.6; }
+.logoName {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
 
-.featureGrid { display: grid; gap: 1.5rem; }
-.featItem { display: flex; gap: 1rem; align-items: flex-start; }
-.featIcon { color: #6ee7b7; font-size: 1.2rem; margin-top: 3px; }
-.featItem strong { display: block; font-size: 1.1rem; }
-.featItem p { font-size: 0.9rem; opacity: 0.7; }
+.heroText {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
 
-/* RIGHT FORM SIDE */
+.heroText span {
+  color: #34d399;
+}
+
+.heroSubtext {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  opacity: 0.9;
+  max-width: 350px;
+}
+
+/* Form Styling */
 .formSide {
-  background-color: #f8fafc;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 40px;
 }
 
-.formWrapper { width: 100%; max-width: 550px; }
+.formWrapper {
+  width: 100%;
+  max-width: 600px;
+}
 
-.formHeader { margin-bottom: 2rem; }
-.formHeader h2 { font-size: 2rem; font-weight: 800; color: #1e293b; margin-bottom: 0.4rem; }
-.formHeader p { color: #64748b; font-weight: 500; }
+.glassCard {
+  background: white !important;
+  border: 1px solid #d1fae5 !important;
+  border-radius: 24px !important;
+  padding: 40px !important;
+  box-shadow: 0 20px 50px rgba(6, 78, 59, 0.05) !important;
+}
 
-.mainForm { display: flex; flex-direction: column; gap: 1.25rem; }
+.header h2 {
+  font-size: 1.8rem;
+  color: #064e3b;
+  margin-bottom: 5px;
+}
 
-/* Grid for fields like Name/Email to save space */
-.inputGrid {
+.header p {
+  color: #64748b;
+  margin-bottom: 30px;
+}
+
+.row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
-.errorBox {
-  background: #fef2f2;
-  color: #dc2626;
-  padding: 0.8rem;
-  border-radius: 0.75rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  font-size: 0.85rem;
-  border-left: 4px solid #dc2626;
+.greenIcon {
+  color: #059669;
 }
 
-.eye { background: none; border: none; color: #94a3b8; cursor: pointer; display: flex; padding: 0.5rem; }
+.passwordArea {
+  margin-bottom: 20px;
+}
 
-/* PASSWORD STRENGTH METER */
-.strengthWrapper { margin-top: 0.5rem; }
-.strengthMeta { font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 0.4rem; }
+/* Strength Meter */
+.strengthMeter {
+  margin-top: 10px;
+}
 
-.strengthBar {
-  display: flex;
-  gap: 0.4rem;
+.meterMeta {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-bottom: 5px;
+}
+
+.meterBarContainer {
   height: 6px;
-}
-
-.segment {
-  flex: 1;
-  background: #e2e8f0;
+  background: #ecfdf5;
   border-radius: 10px;
-  transition: all 0.3s ease;
+  overflow: hidden;
 }
 
-/* Strength Colors */
-.label1, .active1 { color: #ef4444 !important; background: #ef4444; } /* Weak */
-.label2, .active2 { color: #f59e0b !important; background: #f59e0b; } /* Fair */
-.label3, .active3 { color: #3b82f6 !important; background: #3b82f6; } /* Good */
-.label4, .active4 { color: #10b981 !important; background: #10b981; } /* Excellent */
+.meterBar {
+  height: 100%;
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
 
-.registerBtn {
-  background: #1ca65c !important;
-  height: 3.5rem !important;
-  border-radius: 1rem !important;
+.submitBtn {
+  background: #059669 !important;
+  height: 54px !important;
+  border-radius: 12px !important;
   font-weight: 700 !important;
-  font-size: 1.1rem !important;
-  margin-top: 1rem;
-  box-shadow: 0 10px 15px -3px rgba(28, 166, 92, 0.2);
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-.loginSwitch { text-align: center; margin-top: 1rem; color: #64748b; font-weight: 500; }
-.loginSwitch a { color: #1ca65c; font-weight: 700; text-decoration: none; }
+.submitBtn:hover {
+  background: #047857 !important;
+  transform: translateY(-1px);
+}
 
-/* Responsive */
-@media (max-width: 900px) {
+.switch {
+  text-align: center;
+  margin-top: 25px;
+  color: #64748b;
+}
+
+.switch a {
+  color: #059669;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.eyeBtn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
   .gridContainer { grid-template-columns: 1fr; }
-  .infoSide { display: none; }
-  .inputGrid { grid-template-columns: 1fr; }
-} 
+  .brandingSide { display: none; }
+}

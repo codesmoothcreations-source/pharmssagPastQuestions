@@ -191,9 +191,11 @@ export default function PastQuestionDetail() {
                     <Button
                       variant="outline"
                       leftIcon={<FaEdit />}
-                      onClick={() => toast('Edit page coming soon')}
+                      /* Navigates to the route you specified using the question's ID */
+                      onClick={() => navigate(`/edit-questions/${question?._id || id}`)}
+                      className={styles.pharmacyEditBtn}
                     >
-                      Edit
+                      Edit Question
                     </Button>
 
                     <Button
@@ -210,44 +212,68 @@ export default function PastQuestionDetail() {
           </div>
 
           <div className={styles.previewColumn}>
-            <Card>
-              <h3>Preview</h3>
+            <Card className={styles.previewCard}>
+              <h3 className={styles.previewTitle}>Question Preview</h3>
 
-              {question.cloudinaryUrl || question.fileInfo?.url ? (
-                ['jpg', 'jpeg', 'png', 'webp'].includes(
-                  (question.fileType || '').toLowerCase()
-                ) ? (
-                  <img
-                    src={question.cloudinaryUrl || question.fileInfo.url}
-                    alt={question.title}
-                    style={{ width: '100%', height: 'auto' }}
-                    onError={(e) => {
-                      console.error('Image failed to load:', e.target.src)
-                      e.target.style.display = 'none'
-                    }}
-                  />
-                ) : question.fileType?.toLowerCase() === 'pdf' ? (
-                  <iframe
-                    src={question.cloudinaryUrl || question.fileInfo.url}
-                    style={{ width: '100%', height: '400px' }}
-                    title={question.title}
-                  />
-                ) : (
-                  <div>File preview not available</div>
-                )
-              ) : (
-                <div>File preview not available</div>
-              )}
+              <div className={styles.mediaContainer}>
+                {/* Logic: Try to get URL from cloudinary or fileInfo */}
+                {(() => {
+                  const url = question.cloudinaryUrl || question.fileInfo?.url;
+                  
+                  // Auto-detect type if question.fileType is missing
+                  const detectedType = (question.fileType || url?.split('.').pop() || '').toLowerCase();
+                  const isImage = ['jpg', 'jpeg', 'png', 'webp', 'gif'].includes(detectedType);
+                  const isPdf = detectedType === 'pdf';
 
-              {/* Download Button */}
-              <Button
-                variant="primary"
-                leftIcon={<FaEye />}
-                onClick={handleDownload}
-                loading={isDownloading}
-              >
-                Preview
-              </Button>
+                  if (!url) {
+                    return (
+                      <div className={styles.noFile}>
+                        <span>No document attached</span>
+                      </div>
+                    );
+                  }
+
+                  if (isImage) {
+                    return (
+                      <img
+                        src={url}
+                        alt={question.title}
+                        className={styles.previewImage}
+                        onError={(e) => {
+                          console.error('Image failed to load:', e.target.src);
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                    );
+                  }
+
+                  if (isPdf) {
+                    return (
+                      <iframe
+                        src={`${url}#toolbar=0`}
+                        className={styles.previewIframe}
+                        title={question.title}
+                      />
+                    );
+                  }
+
+                  return <div className={styles.noFile}>Preview not available for {detectedType} or view full screen</div>;
+                })()}
+              </div>
+
+              {/* Download / Full Preview Button */}
+              <div className={styles.actionBox}>
+                <Button
+                  variant="primary"
+                  className={styles.greenPreviewBtn}
+                  leftIcon={<FaEye />}
+                  onClick={handleDownload}
+                  loading={isDownloading}
+                  fullWidth
+                >
+                  View Full Screen
+                </Button>
+              </div>
             </Card>
           </div>
 

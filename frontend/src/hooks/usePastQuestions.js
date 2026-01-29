@@ -1,4 +1,5 @@
 // src/hooks/usePastQuestions.js - Updated
+import { toast } from 'react-hot-toast';
 import { useQuery, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query'
 import { pastQuestionsApi } from '../api/pastQuestionsApi'
 
@@ -114,31 +115,24 @@ export function useCreatePastQuestion(onProgress) {
 }
 
 export function useUpdatePastQuestion() {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   
   return useMutation({
     mutationFn: ({ id, data }) => pastQuestionsApi.update(id, data),
     onSuccess: (data, variables) => {
-      const { id } = variables
+      const { id } = variables;
       
-      // Invalidate queries
-      queryClient.invalidateQueries(['past-questions'])
-      queryClient.invalidateQueries(['past-question', id])
-      queryClient.invalidateQueries(['past-questions-search'])
+      // Refresh the data silently in the background
+      queryClient.invalidateQueries(['past-questions']);
+      queryClient.invalidateQueries(['past-question', id]);
       
-      // Update cache
       if (data) {
-        const updatedQuestion = data.data || data
-        queryClient.setQueryData(['past-question', id], updatedQuestion)
+        const updatedDoc = data.data || data;
+        queryClient.setQueryData(['past-question', id], updatedDoc);
       }
-      
-      return data
+      // REMOVED the toast from here so only the Page component shows it
     },
-    onError: (error) => {
-      console.error('Update past question error:', error)
-      throw error
-    }
-  })
+  });
 }
 
 export function useDeletePastQuestion() {

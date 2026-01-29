@@ -1,19 +1,20 @@
 /* eslint-disable no-undef */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { FaUser, FaLock, FaEye, FaEyeSlash, FaCheckCircle, FaFlask, FaArrowRight } from 'react-icons/fa'
+
 import Card from '../../../components/ui/Card/Card'
 import Button from '../../../components/ui/Button/Button'
 import Input from '../../../components/ui/Input/Input'
 import { useAuth } from '../../../contexts/AuthContext'
-import { FaUser, FaLock, FaEye, FaEyeSlash, FaCheckCircle, FaFlask } from 'react-icons/fa'
 import styles from './Login.module.css'
 
 const loginSchema = z.object({
-  email: z.string().email('Please enter a valid email'),
-  password: z.string().min(1, 'Password is required'),
+  email: z.string().email('Please enter a valid email address'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
   rememberMe: z.boolean().optional()
 })
 
@@ -22,10 +23,17 @@ export default function Login() {
   const [loginError, setLoginError] = useState('')
   const navigate = useNavigate()
   const location = useLocation()
-  const { login, loginLoading } = useAuth()
+  
+  // Destructure loginLoading to control button state
+  const { login, loginLoading, user } = useAuth()
   
   const from = location.state?.from?.pathname || '/dashboard'
-  
+
+  // If user is already logged in, redirect them immediately
+  useEffect(() => {
+    if (user) navigate(from, { replace: true })
+  }, [user, navigate, from])
+
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: { rememberMe: false }
@@ -35,15 +43,19 @@ export default function Login() {
     try {
       setLoginError('')
       await login(data)
-      navigate(from)
+      // Navigation is often handled by useEffect above, but we keep this as a backup
+      navigate(from, { replace: true })
     } catch (error) {
-      setLoginError(error.response?.status === 401 ? 'Invalid email or password' : 'Login failed. Please try again.')
+      console.error("Login Error:", error)
+      const message = error.response?.data?.message || 
+                      (error.response?.status === 401 ? 'Invalid email or password' : 'Connection error. Please try again.')
+      setLoginError(message)
     }
   }
 
   const handleQuickFill = () => {
-    setValue('email', 'admin@pharmssage.com')
-    setValue('password', 'password123')
+    setValue('email', 'admin@pharmssage.com', { shouldValidate: true })
+    setValue('password', 'password123', { shouldValidate: true })
   }
 
   return (
@@ -52,43 +64,50 @@ export default function Login() {
         
         {/* Left Side: Branding & Value Proposition */}
         <section className={styles.brandingSide}>
+          <div className={styles.glassOverlay}></div>
           <div className={styles.brandingContent}>
             <div className={styles.logoHeader}>
-              <span className={styles.pillIcon}>💊</span>
+              <div className={styles.logoIcon}>
+                <FaFlask />
+              </div>
               <span className={styles.logoName}>Pharmssage</span>
             </div>
             
             <h1 className={styles.heroText}>
-              The Smart Way to <br />
-              <span>Master Pharmacy.</span>
+              Elevating <br />
+              <span>Pharmacy Education.</span>
             </h1>
             
             <p className={styles.heroSubtext}>
-              Join thousands of pharmacy students using our premium past questions, 
-              video tutorials, and real-time progress analytics.
+              Access the most comprehensive database of pharmaceutical past questions, 
+              expert-led tutorials, and precision analytics.
             </p>
 
             <ul className={styles.valueList}>
-              <li><FaCheckCircle /> <span>5,000+ Exam Questions</span></li>
-              <li><FaCheckCircle /> <span>Detailed Video Solutions</span></li>
-              <li><FaCheckCircle /> <span>Offline Access Capability</span></li>
+              <li><FaCheckCircle className={styles.check} /> <span>5,000+ Exam Questions</span></li>
+              <li><FaCheckCircle className={styles.check} /> <span>Detailed Video Solutions</span></li>
+              <li><FaCheckCircle className={styles.check} /> <span>Offline Access Capability</span></li>
             </ul>
           </div>
           <div className={styles.brandingFooter}>
-            © 2026 Pharmssage Platform. All rights reserved.
+            © 2026 Pharmssage Platform. Precision in Learning.
           </div>
         </section>
 
-        {/* Right Side: Simple & Clean Auth Form */}
+        {/* Right Side: Auth Form */}
         <section className={styles.formSide}>
           <div className={styles.formWrapper}>
             <Card className={styles.authCard}>
               <header className={styles.authHeader}>
                 <h2>Welcome Back</h2>
-                <p>Please enter your credentials to access your dashboard.</p>
+                <p>Sign in to continue your journey</p>
               </header>
 
-              {loginError && <div className={styles.errorBanner}>{loginError}</div>}
+              {loginError && (
+                <div className={styles.errorBanner}>
+                  <span>{loginError}</span>
+                </div>
+              )}
 
               <form onSubmit={handleSubmit(onSubmit)} className={styles.mainForm}>
                 <Input
@@ -96,18 +115,18 @@ export default function Login() {
                   {...register('email')}
                   error={errors.email?.message}
                   placeholder="name@university.edu"
-                  leftIcon={<FaUser />}
+                  leftIcon={<FaUser className={styles.inputIcon} />}
                   autoFocus
                 />
 
-                <div className={styles.passwordSection}>
+                <div className={styles.passwordWrapper}>
                   <Input
                     label="Password"
                     type={showPassword ? 'text' : 'password'}
                     {...register('password')}
                     error={errors.password?.message}
                     placeholder="••••••••"
-                    leftIcon={<FaLock />}
+                    leftIcon={<FaLock className={styles.inputIcon} />}
                     rightIcon={
                       <button 
                         type="button" 
@@ -123,7 +142,8 @@ export default function Login() {
                 <div className={styles.formMeta}>
                   <label className={styles.rememberBox}>
                     <input type="checkbox" {...register('rememberMe')} />
-                    <span>Keep me logged in</span>
+                    <span className={styles.checkmark}></span>
+                    <span className={styles.label}>Keep me logged in</span>
                   </label>
                   <Link to="/forgot-password" className={styles.forgotLink}>
                     Forgot Password?
@@ -138,18 +158,17 @@ export default function Login() {
                   fullWidth
                   className={styles.submitBtn}
                 >
-                  Sign In to Dashboard
+                  Sign In <FaArrowRight className={styles.btnIcon} />
                 </Button>
 
-                {/* Developer Tool: Styled as a Demo Mode button */}
                 {import.meta.env.DEV && (
                   <button type="button" onClick={handleQuickFill} className={styles.demoMode}>
-                    <FaFlask /> Try with Demo Account
+                    <FaFlask /> Use Demo Account
                   </button>
                 )} 
 
                 <div className={styles.divider}>
-                  <span>New to Pharmssage?</span>
+                  <span>OR</span>
                 </div>
 
                 <Link to="/register" className={styles.createAccountBtn}>

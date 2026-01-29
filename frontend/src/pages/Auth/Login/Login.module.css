@@ -1,100 +1,103 @@
-/* Login.module.css */
-
 .loginPage {
   min-height: 100vh;
-  background-color: #ffffff;
+  display: flex;
+  background-color: #f8fafc;
+  font-family: 'Inter', sans-serif;
 }
 
 .gridContainer {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  min-height: 100vh;
+  grid-template-columns: 1.2fr 1fr;
+  width: 100%;
 }
 
-/* BRANDING SIDE (Left) */
+/* Branding Side */
 .brandingSide {
-  background: linear-gradient(135deg, #1ca65c 0%, #065f46 100%);
+  position: relative;
+  background: linear-gradient(135deg, #065f46 0%, #064e3b 100%);
   color: white;
-  padding: 4rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: relative;
+  padding: 60px;
   overflow: hidden;
 }
 
-/* Subtle pattern overlay */
-.brandingSide::after {
-  content: "";
+.glassOverlay {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
-  background-size: 30px 30px;
-  pointer-events: none;
+  top: -10%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  filter: blur(60px);
 }
 
 .logoHeader {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: -1px;
+  gap: 12px;
+  margin-bottom: 80px;
 }
 
-.pillIcon { font-size: 2rem; }
+.logoIcon {
+  background: #10b981;
+  padding: 10px;
+  border-radius: 12px;
+  display: flex;
+  font-size: 1.5rem;
+}
+
+.logoName {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
 
 .heroText {
   font-size: 3.5rem;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.1;
-  margin-top: 2rem;
+  margin-bottom: 24px;
 }
 
 .heroText span {
-  color: #86efac; /* Lighter medical green */
+  color: #34d399;
 }
 
 .heroSubtext {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 1.6;
   opacity: 0.9;
   max-width: 500px;
-  margin: 1.5rem 0 3rem 0;
+  margin-bottom: 40px;
 }
 
 .valueList {
   list-style: none;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
 }
 
 .valueList li {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-weight: 600;
-  font-size: 1.1rem;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-weight: 500;
 }
 
-.valueList svg {
-  color: #86efac;
+.check {
+  color: #34d399;
 }
 
-.brandingFooter {
-  font-size: 0.85rem;
-  opacity: 0.6;
-}
-
-/* FORM SIDE (Right) */
+/* Form Side */
 .formSide {
-  background-color: #f8fafc;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 40px;
+  background: white;
 }
 
 .formWrapper {
@@ -103,163 +106,157 @@
 }
 
 .authCard {
-  padding: 3rem !important;
-  border-radius: 2rem !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08) !important;
   border: none !important;
-  background: white !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05) !important;
+  padding: 40px !important;
+  border-radius: 20px !important;
 }
 
 .authHeader h2 {
-  font-size: 2rem;
-  font-weight: 800;
-  color: #1a202c;
-  margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+  color: #1e293b;
+  margin-bottom: 8px;
 }
 
 .authHeader p {
   color: #64748b;
-  font-size: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 32px;
 }
 
 .errorBanner {
   background: #fef2f2;
-  border: 1px solid #fee2e2;
-  color: #dc2626;
-  padding: 0.75rem;
-  border-radius: 0.75rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  text-align: center;
+  border-left: 4px solid #ef4444;
+  color: #b91c1c;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
-.mainForm {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+.inputIcon {
+  color: #94a3b8;
+}
+
+.passwordWrapper {
+  position: relative;
+  margin-top: 20px;
 }
 
 .eyeBtn {
   background: none;
   border: none;
-  color: #94a3b8;
+  color: #64748b;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 8px;
   display: flex;
+  transition: color 0.2s;
+}
+
+.eyeBtn:hover {
+  color: #10b981;
 }
 
 .formMeta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.875rem;
+  margin: 20px 0 30px;
 }
 
 .rememberBox {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   cursor: pointer;
+  font-size: 0.9rem;
   color: #475569;
 }
 
 .forgotLink {
-  color: #1ca65c;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.submitBtn {
-  background-color: #1ca65c !important;
-  border-radius: 1rem !important;
-  font-weight: 700 !important;
-  height: 3.5rem !important;
-  font-size: 1.1rem !important;
-}
-
-.demoMode {
-  background: #f1f5f9;
-  border: 1px dashed #cbd5e0;
-  color: #475569;
-  padding: 0.75rem;
-  border-radius: 0.75rem;
   font-size: 0.9rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: all 0.2s;
-}
-
-.demoMode:hover {
-  background: #e2e8f0;
-  color: #1ca65c;
-}
-
-.divider {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #94a3b8;
-  font-size: 0.85rem;
-  margin: 0.5rem 0;
-}
-
-.divider::before, .divider::after {
-  content: '';
-  flex: 1;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.divider span { padding: 0 1rem; }
-
-.createAccountBtn {
-  text-align: center;
-  padding: 1rem;
-  border-radius: 1rem;
-  background: white;
-  border: 1.5px solid #e2e8f0;
-  color: #1a202c;
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-
-.createAccountBtn:hover {
-  border-color: #1ca65c;
-  color: #1ca65c;
-  background: #f0fdf4;
-}
-
-.formFooter {
-  text-align: center;
-  margin-top: 2rem;
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-
-.formFooter a {
-  color: #64748b;
+  color: #059669;
   text-decoration: none;
   font-weight: 600;
 }
 
-/* RESPONSIVE: On mobile, hide the branding and center the form */
-@media (max-width: 1024px) {
+.submitBtn {
+  background: #059669 !important;
+  height: 54px !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  border-radius: 12px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.demoMode {
+  width: 100%;
+  margin-top: 16px;
+  background: #f1f5f9;
+  border: 1px dashed #cbd5e1;
+  padding: 12px;
+  border-radius: 12px;
+  color: #475569;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.divider {
+  text-align: center;
+  margin: 24px 0;
+  position: relative;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #e2e8f0;
+  z-index: 1;
+}
+
+.divider span {
+  background: white;
+  padding: 0 12px;
+  position: relative;
+  z-index: 2;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.createAccountBtn {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #1e293b;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.createAccountBtn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+@media (max-width: 968px) {
   .gridContainer {
     grid-template-columns: 1fr;
   }
   .brandingSide {
     display: none;
-  }
-  .formSide {
-    padding: 1.5rem;
-  }
-  .authCard {
-    padding: 2rem !important;
   }
 }
