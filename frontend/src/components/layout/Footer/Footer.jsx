@@ -34,7 +34,7 @@ export default function Footer() {
           <div className={styles.brand}>
             <Link to="/" className={styles.logo}>
               <img src={logoImage} alt="Pharmssage Logo" className={styles.logoImage} />
-              <span className={styles.logoText}>Pharmssage</span>
+              <span className={styles.logoText}>Pharmssag</span>
             </Link>
             <p className={styles.tagline}>
               Your comprehensive platform for pharmacy education
@@ -78,7 +78,7 @@ export default function Footer() {
                 📞 +233 055 160 3553
               </p>
               <p className={styles.contactItem}>
-                🏛️ Pharmacy Department, University Campus
+                🏛️ Pharmaceutical Sciences
               </p>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className={styles.copyright}>
           <p className={styles.copyrightText}>
-            © {currentYear} Pharmssage. Made with <FaHeart className={styles.heartIcon} /> for pharmacy students.
+            © {currentYear} Pharmssag. Made with <FaHeart className={styles.heartIcon} /> for pharmacy students.
             All rights reserved.
           </p>
         </div>

@@ -64,7 +64,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/" className={styles.logo}>
           <img src={logoImage} alt="Pharmssage Logo" className={styles.logoImage} />
-          <span className={styles.logoText}>Pharmssage</span>
+          <span className={styles.logoText}>Pharmssag</span>
         </Link>
 
         {/* Desktop Navigation - Only essential links */}

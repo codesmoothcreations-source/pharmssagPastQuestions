@@ -51,7 +51,7 @@ export default function Home() {
         <section className={styles.hero}>
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>
-              Welcome to <span className={styles.highlight}>Pharmssage</span>
+              Welcome to <span className={styles.highlight}>Pharmssag</span>
             </h1>
 
             <p className={styles.heroSubtitle}>
@@ -85,7 +85,7 @@ export default function Home() {
         <section className={styles.section}>
           <header className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>
-              Why Choose Pharmssage?
+              Why Choose Pharmssag?
             </h2>
             <p className={styles.sectionSubtitle}>
               Designed for focus, speed, and academic success
