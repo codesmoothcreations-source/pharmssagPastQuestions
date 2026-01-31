@@ -23,9 +23,20 @@ config();
 const app = express();
 
 // Security middleware
-app.use(helmet({
-    crossOriginResourcePolicy: { policy: "cross-origin" }
-}));
+app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          "default-src": ["'self'"],
+          "connect-src": ["'self'", "https://res.cloudinary.com", "http://localhost:5000"],
+          "img-src": ["'self'", "data:", "https://res.cloudinary.com"],
+          "script-src": ["'self'", "'unsafe-inline'"],
+          "style-src": ["'self'", "'unsafe-inline'"],
+        },
+      },
+      crossOriginResourcePolicy: { policy: "cross-origin" }
+    })
+  );
 
 // CORS configuration
 app.use(cors({

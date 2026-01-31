@@ -139,8 +139,26 @@ export default function PastQuestionCard({ question }) {
             size="small"
             variant="primary"
             leftIcon={<FaDownload />}
-            onClick={handleDownload}
             className={styles.downloadBtn}
+            onClick={async () => {
+              const fileUrl = question.cloudinaryUrl || question.fileInfo?.url
+              if (!fileUrl) return toast.error('No file to download!')
+
+              try {
+                const response = await fetch(fileUrl)
+                const blob = await response.blob()
+                const link = document.createElement('a')
+                link.href = window.URL.createObjectURL(blob)
+                link.download = question.title || 'past-question'
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link)
+                toast.success('Download started!')
+              } catch (err) {
+                console.error(err)
+                toast.error('Failed to download file')
+              }
+            }}
           >
             Download
           </Button>
