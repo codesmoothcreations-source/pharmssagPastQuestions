@@ -32,7 +32,7 @@ export default function Login() {
     if (user) navigate(from, { replace: true })
   }, [user, navigate, from])
 
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: { rememberMe: false }
   })
@@ -50,11 +50,6 @@ export default function Login() {
     }
   }
 
-  const handleQuickFill = () => {
-    setValue('email', 'admin@pharmssage.com', { shouldValidate: true })
-    setValue('password', 'password123', { shouldValidate: true })
-  }
-
   return (
     <div className={styles.loginPage}>
       <div className={styles.gridContainer}>
@@ -63,7 +58,7 @@ export default function Login() {
         <div className={styles.mobileBrand}>
           <div className={styles.mobileLogo}>
             <FaLeaf className={styles.mobileLogoIcon} />
-            <span className={styles.mobileLogoName}>Pharmssage</span>
+            <span className={styles.mobileLogoName}>Pharmssag</span>
           </div>
           <h2>Welcome Back</h2>
           <p>Sign in to continue your journey</p>
@@ -154,7 +149,7 @@ export default function Login() {
               <div className={styles.logoIcon}>
                 <FaLeaf />
               </div>
-              <span className={styles.logoName}>Pharmssage</span>
+              <span className={styles.logoName}>Pharmssag</span>
             </div>
             
             <h1 className={styles.heroText}>
@@ -174,7 +169,7 @@ export default function Login() {
             </ul>
           </div>
           <div className={styles.brandingFooter}>
-            © 2026 Pharmssage Platform. Precision in Learning.
+            © 2026 Pharmssag Platform. Precision in Learning.
           </div>
         </section>
       </div>

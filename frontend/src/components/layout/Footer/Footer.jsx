@@ -78,7 +78,7 @@ export default function Footer() {
                 📞 +233 055 160 3553
               </p>
               <p className={styles.contactItem}>
-                🏛️ Pharmaceutical Sciences
+                🏛️ Department of Pharmaceutical Sciences, University Campus
               </p>
             </div>
           </div>

@@ -48,7 +48,7 @@ export default function Register() {
       }
       
       await registerUser(registrationData)
-      toast.success('Welcome to Pharmssage!')
+      toast.success('Welcome to Pharmssag!')
       navigate('/dashboard')
     } catch (error) {
       toast.error(error.response?.data?.message || 'Registration failed')
@@ -79,7 +79,7 @@ export default function Register() {
           <div className={styles.brandingContent}>
             <div className={styles.logoHeader}>
               <div className={styles.logoIcon}><FaLeaf /></div>
-              <span className={styles.logoName}>Pharmssage</span>
+              <span className={styles.logoName}>Pharmssag</span>
             </div>
             <h1 className={styles.heroText}>Start Your <br /><span>Academic Growth.</span></h1>
             <p className={styles.heroSubtext}>Access the largest pharmacy student network with just a few clicks.</p>
@@ -93,7 +93,7 @@ export default function Register() {
         <div className={styles.mobileBrand}>
             <div className={styles.mobileLogo}>
             <FaLeaf className={styles.mobileLogoIcon} />
-            <span className={styles.mobileLogoName}>Pharmssage</span>
+            <span className={styles.mobileLogoName}>Pharmssag</span>
             </div>
             <h2>Start Your Academic Journey</h2>
             <p>Create your account in seconds</p>
