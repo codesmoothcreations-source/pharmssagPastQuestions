@@ -1,0 +1,22 @@
+{
+  "name": "pharmsag2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cd backend/ node src/server.js && cd frontend vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codesmoothcreations-source/pharmssagPastQuestions.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/codesmoothcreations-source/pharmssagPastQuestions/issues"
+  },
+  "homepage": "https://github.com/codesmoothcreations-source/pharmssagPastQuestions#readme"
+}

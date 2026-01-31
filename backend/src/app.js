@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import path, { dirname } from "path";
 import { config } from 'dotenv';
 
 // Import routes
@@ -53,24 +54,27 @@ app.use(requestLogger);
 // Root route
 
 // this is where the frontend will be served 
-app.get('/', (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: '🚀 Welcome to PHAMSAG Backend API',
-        version: '1.0.0',
-        documentation: '/api-docs',
-        endpoints: {
-            auth: '/api/auth',
-            users: '/api/users',
-            courses: '/api/courses',
-            pastQuestions: '/api/past-questions',
-            videos: '/api/videos',
-            health: '/api/health'
-        },
-        status: 'operational',
-        timestamp: new Date().toISOString()
-    });
-});
+
+
+
+// app.get('/', (req, res) => {
+//     res.status(200).json({
+//         success: true,
+//         message: '🚀 Welcome to PHAMSAG Backend API',
+//         version: '1.0.0',
+//         documentation: '/api-docs',
+//         endpoints: {
+//             auth: '/api/auth',
+//             users: '/api/users',
+//             courses: '/api/courses',
+//             pastQuestions: '/api/past-questions',
+//             videos: '/api/videos',
+//             health: '/api/health'
+//         },
+//         status: 'operational',
+//         timestamp: new Date().toISOString()
+//     });
+// });
 
 // API Documentation route
 app.get('/api-docs', (req, res) => {
@@ -151,6 +155,16 @@ app.use('/api/users', userRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/past-questions', pastQuestionRoutes);
 app.use('/api/videos', videoRoutes);
+
+const __dirname = path.resolve();
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
+    })
+}
 
 // 404 handler
 app.use(notFound);

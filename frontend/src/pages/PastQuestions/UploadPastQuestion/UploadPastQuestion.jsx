@@ -190,6 +190,20 @@ export default function UploadPastQuestion() {
     );
   }
 
+  const generateYears = () => {
+    const currentYear = new Date().getFullYear();
+    const years = [];
+    // Generates the last 15 academic years dynamically
+    for (let i = 0; i < 15; i++) {
+      const start = currentYear - i;
+      const end = start + 1;
+      years.push(`${start}/${end}`);
+    }
+    return years;
+  };
+  
+  const academicYearOptions = generateYears();
+
   return (
     <Layout>
       <div className={styles.uploadPage}>
@@ -280,17 +294,23 @@ export default function UploadPastQuestion() {
                     <label className={styles.label}>
                       Academic Year *
                     </label>
-                    <select
+                    
+                    {/* We change 'select' to 'input' and link it to the datalist */}
+                    <input
                       {...register('academicYear')}
+                      type="text"
+                      list="year-options"
+                      placeholder="Select or type year (e.g. 2025/2026)"
                       className={`${styles.select} ${errors.academicYear ? styles.error : ''}`}
-                    >
-                      <option value="">Select Year</option>
-                      <option value="2023/2024">2023/2024</option>
-                      <option value="2022/2023">2022/2023</option>
-                      <option value="2021/2022">2021/2022</option>
-                      <option value="2020/2021">2020/2021</option>
-                      <option value="2019/2020">2019/2020</option>
-                    </select>
+                    />
+
+                    {/* The Datalist holds the "suggestions" */}
+                    <datalist id="year-options">
+                      {academicYearOptions.map((year) => (
+                        <option key={year} value={year} />
+                      ))}
+                    </datalist>
+
                     {errors.academicYear && (
                       <span className={styles.errorMessage}>{errors.academicYear.message}</span>
                     )}

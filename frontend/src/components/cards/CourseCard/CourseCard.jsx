@@ -38,15 +38,6 @@ export default function CourseCard({ course }) {
             <span className={styles.statLabel}>Questions</span>
           </div>
         </div>
-        <div className={styles.stat}>
-          <FaEye className={styles.statIcon} />
-          <div>
-            <span className={styles.statNumber}>
-              {course.stats?.totalViews || 0}
-            </span>
-            <span className={styles.statLabel}>Views</span>
-          </div>
-        </div>
       </div>
     </Link>
   )

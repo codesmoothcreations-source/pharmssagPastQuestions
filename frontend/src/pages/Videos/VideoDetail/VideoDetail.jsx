@@ -1,6 +1,5 @@
-// src/pages/Videos/VideoDetail/VideoDetail.jsx
 import React from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import Layout from '../../../components/layout/Layout/Layout'
 import Card from '../../../components/ui/Card/Card'
 import Button from '../../../components/ui/Button/Button'
@@ -13,7 +12,6 @@ import styles from './VideoDetail.module.css'
 
 export default function VideoDetail() {
   const { id } = useParams()
-  const navigate = useNavigate()
 
   const { data: video, isLoading, error } = useQuery({
     queryKey: ['video', id],
@@ -28,6 +26,12 @@ export default function VideoDetail() {
   })
 
   const relatedVideos = relatedVideosData?.videos || relatedVideosData?.data || []
+
+  // Logic to handle external redirect
+  const handleExternalRedirect = (videoId) => {
+    if (!videoId) return;
+    window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank', 'noopener,noreferrer');
+  }
 
   if (isLoading) {
     return (
@@ -55,19 +59,16 @@ export default function VideoDetail() {
     )
   }
 
-  // Backend returns video data directly (not nested in snippet)
   const videoId = video?.id || id
   const title = video?.title || 'Untitled Video'
   const description = video?.description || ''
   const channelTitle = video?.channelTitle || 'Unknown Channel'
   const publishedAt = video?.publishedAt || ''
   const statistics = video?.statistics || {}
-  const thumbnail = video?.thumbnail?.high || video?.thumbnail?.medium || video?.thumbnail?.default || ''
 
   return (
     <Layout>
       <div className={styles.videoDetail}>
-        {/* Back Navigation */}
         <div className={styles.backNavigation}>
           <Link to="/videos" className={styles.backLink}>
             <FaArrowLeft className={styles.backIcon} />
@@ -75,16 +76,14 @@ export default function VideoDetail() {
           </Link>
         </div>
 
-        {/* Main Content */}
         <div className={styles.mainContent}>
-          {/* Left Column - Video Player */}
           <div className={styles.videoColumn}>
             <Card className={styles.videoCard}>
               <div className={styles.videoWrapper}>
                 <iframe
                   className={styles.videoPlayer}
                   src={`https://www.youtube.com/embed/${videoId}`}
-                  title={snippet.title}
+                  title={title} // Fixed: was snippet.title
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
@@ -97,9 +96,7 @@ export default function VideoDetail() {
                   <div className={styles.metaItem}>
                     <FaCalendar className={styles.metaIcon} />
                     <span>
-                      {publishedAt
-                        ? new Date(publishedAt).toLocaleDateString()
-                        : 'N/A'}
+                      {publishedAt ? new Date(publishedAt).toLocaleDateString() : 'N/A'}
                     </span>
                   </div>
                   {statistics.viewCount && (
@@ -139,18 +136,19 @@ export default function VideoDetail() {
             </Card>
           </div>
 
-          {/* Right Column - Related Videos */}
           <div className={styles.relatedColumn}>
             <Card className={styles.relatedCard}>
               <h3 className={styles.relatedTitle}>Related Videos</h3>
               <div className={styles.relatedList}>
                 {relatedVideos.slice(0, 5).map((relatedVideo, index) => {
-                  const relatedVideoId = relatedVideo.id || relatedVideo.videoId
+                  const rId = relatedVideo.id || relatedVideo.videoId
                   return (
                     <div
-                      key={relatedVideoId || `related-${index}`}
+                      key={rId || `related-${index}`}
                       className={styles.relatedItem}
-                      onClick={() => navigate(`/videos/${relatedVideoId}`)}
+                      onClick={() => handleExternalRedirect(rId)}
+                      role="button"
+                      aria-label={`Watch ${relatedVideo.title} on YouTube`}
                     >
                       <VideoCard video={relatedVideo} />
                     </div>

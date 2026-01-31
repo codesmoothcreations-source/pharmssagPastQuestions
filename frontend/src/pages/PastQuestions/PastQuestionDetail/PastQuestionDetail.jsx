@@ -191,7 +191,7 @@ export default function PastQuestionDetail() {
                     <Button
                       variant="outline"
                       leftIcon={<FaEdit />}
-                      /* Navigates to the route you specified using the question's ID */
+                      /* Navigates to the route you specified using the question's ID /edit-questions/:id */ 
                       onClick={() => navigate(`/edit-questions/${question?._id || id}`)}
                       className={styles.pharmacyEditBtn}
                     >

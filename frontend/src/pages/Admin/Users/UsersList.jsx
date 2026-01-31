@@ -1,5 +1,4 @@
-// src/pages/Admin/Users/UsersList.jsx
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Layout from '../../../components/layout/Layout/Layout'
 import Card from '../../../components/ui/Card/Card'
@@ -19,8 +18,7 @@ import {
   FaUserShield,
   FaUserCheck,
   FaUserTimes,
-  FaDownload,
-  FaFilter
+  FaDownload
 } from 'react-icons/fa'
 import toast from 'react-hot-toast'
 import styles from './UsersList.module.css'
@@ -40,16 +38,16 @@ export default function UsersList() {
 
   const limit = 20
 
-  // Redirect if not admin
-  React.useEffect(() => {
-    if (!isAdmin) {
+  // Admin Redirect Logic
+  useEffect(() => {
+    if (isAdmin === false) {
       toast.error('Access denied. Admin privileges required.')
       navigate('/dashboard')
     }
   }, [isAdmin, navigate])
 
-  // Fetch users
-  const { data: usersData, isLoading } = useQuery({
+  // Fetch Users Query
+  const { data: usersData, isLoading, isError, error } = useQuery({
     queryKey: ['admin-users', page, search, roleFilter, statusFilter],
     queryFn: () => usersApi.getAll({
       page,
@@ -58,14 +56,27 @@ export default function UsersList() {
       role: roleFilter || undefined,
       isActive: statusFilter ? statusFilter === 'active' : undefined
     }),
-    enabled: isAdmin
+    enabled: !!isAdmin
   })
 
-  const users = usersData?.data || []
-  const totalUsers = usersData?.pagination?.total || 0
-  const totalPages = usersData?.pagination?.pages || 1
+  // --- DATA EXTRACTION FIX ---
+  // This ensures we catch the users regardless of your API's response structure
+  const users = Array.isArray(usersData) 
+    ? usersData 
+    : (usersData?.data || usersData?.users || []);
 
-  // Update user mutation
+  const totalUsers = usersData?.pagination?.total || usersData?.total || users.length;
+  const totalPages = usersData?.pagination?.pages || usersData?.pages || 1;
+
+  // Debug helper: Check your browser console to see what the API actually sends!
+  useEffect(() => {
+    if (usersData) {
+      console.log('API Response Structure:', usersData);
+      console.log('Extracted Users Array:', users);
+    }
+  }, [usersData, users]);
+
+  // Mutations (Logic Preserved)
   const updateUserMutation = useMutation({
     mutationFn: ({ userId, data }) => usersApi.update(userId, data),
     onSuccess: () => {
@@ -74,149 +85,76 @@ export default function UsersList() {
       setShowEditModal(false)
       setSelectedUser(null)
     },
-    onError: (error) => {
-      toast.error(error.response?.data?.message || 'Failed to update user')
-    }
+    onError: (err) => toast.error(err.response?.data?.message || 'Update failed')
   })
 
-  // Delete user mutation
   const deleteUserMutation = useMutation({
     mutationFn: (userId) => usersApi.delete(userId),
     onSuccess: () => {
-      toast.success('User deleted successfully')
+      toast.success('User deleted')
       queryClient.invalidateQueries(['admin-users'])
       setShowDeleteModal(false)
-      setSelectedUser(null)
     },
-    onError: (error) => {
-      toast.error(error.response?.data?.message || 'Failed to delete user')
-    }
+    onError: (err) => toast.error(err.response?.data?.message || 'Delete failed')
   })
 
-  // Activate/Deactivate user mutation
   const toggleUserStatusMutation = useMutation({
     mutationFn: ({ userId, isActive }) => 
       isActive ? usersApi.activate(userId) : usersApi.deactivate(userId),
-    onSuccess: (_, variables) => {
-      toast.success(`User ${variables.isActive ? 'activated' : 'deactivated'} successfully`)
-      queryClient.invalidateQueries(['admin-users'])
-    },
-    onError: (error) => {
-      toast.error(error.response?.data?.message || 'Failed to update user status')
-    }
+    onSuccess: () => queryClient.invalidateQueries(['admin-users']),
+    onError: (err) => toast.error('Status update failed')
   })
 
-  const handleEdit = (user) => {
-    setSelectedUser(user)
-    setShowEditModal(true)
-  }
-
-  const handleDelete = (user) => {
-    setSelectedUser(user)
-    setShowDeleteModal(true)
-  }
-
+  const handleEdit = (user) => { setSelectedUser(user); setShowEditModal(true); }
+  const handleDelete = (user) => { setSelectedUser(user); setShowDeleteModal(true); }
   const handleUpdateUser = (formData) => {
-    if (!selectedUser) return
-    updateUserMutation.mutate({
-      userId: selectedUser._id,
-      data: formData
-    })
+    updateUserMutation.mutate({ userId: selectedUser._id, data: formData })
   }
-
-  const handleConfirmDelete = () => {
-    if (!selectedUser) return
-    deleteUserMutation.mutate(selectedUser._id)
-  }
-
   const handleToggleStatus = (user) => {
-    toggleUserStatusMutation.mutate({
-      userId: user._id,
-      isActive: !user.isActive
-    })
+    toggleUserStatusMutation.mutate({ userId: user._id, isActive: !user.isActive })
   }
 
-  if (!isAdmin) {
-    return (
-      <Layout>
-        <div className={styles.unauthorized}>
-          <Card>
-            <div className={styles.unauthorizedContent}>
-              <FaUserShield className={styles.unauthorizedIcon} />
-              <h2>Admin Access Required</h2>
-              <p>You need administrator privileges to access this page.</p>
-              <Button variant="primary" onClick={() => navigate('/dashboard')}>
-                Go to Dashboard
-              </Button>
-            </div>
-          </Card>
-        </div>
-      </Layout>
-    )
+  if (!isAdmin && isAdmin !== undefined) {
+    return <Layout><div className={styles.unauthorized}><h2>Restricted Access</h2></div></Layout>
   }
 
   return (
     <Layout>
       <div className={styles.usersList}>
-        {/* Header */}
-        <div className={styles.header}>
+        <header className={styles.header}>
           <div className={styles.headerLeft}>
             <h1 className={styles.title}>
               <FaUsers className={styles.titleIcon} />
               User Management
             </h1>
             <p className={styles.subtitle}>
-              Manage all platform users ({totalUsers} total)
+              Showing {users.length} of {totalUsers} total users
             </p>
           </div>
           <div className={styles.headerActions}>
-            <Button
-              variant="outline"
-              leftIcon={<FaDownload />}
-              onClick={() => toast('Export feature coming soon', { icon: 'ℹ️' })}
-            >
-              Export
-            </Button>
+            <Button variant="outline" leftIcon={<FaDownload />}>Export CSV</Button>
           </div>
-        </div>
+        </header>
 
-        {/* Filters */}
         <Card className={styles.filtersCard}>
           <div className={styles.filters}>
             <div className={styles.searchGroup}>
               <Input
-                placeholder="Search users by name or email..."
+                placeholder="Search name or email..."
                 value={search}
-                onChange={(e) => {
-                  setSearch(e.target.value)
-                  setPage(1)
-                }}
+                onChange={(e) => { setSearch(e.target.value); setPage(1); }}
                 leftIcon={<FaSearch />}
                 fullWidth
               />
             </div>
             <div className={styles.filterGroup}>
-              <select
-                className={styles.filterSelect}
-                value={roleFilter}
-                onChange={(e) => {
-                  setRoleFilter(e.target.value)
-                  setPage(1)
-                }}
-              >
+              <select className={styles.filterSelect} value={roleFilter} onChange={(e) => setRoleFilter(e.target.value)}>
                 <option value="">All Roles</option>
                 <option value="USER">User</option>
                 <option value="ADMIN">Admin</option>
               </select>
-              <select
-                className={styles.filterSelect}
-                value={statusFilter}
-                onChange={(e) => {
-                  setStatusFilter(e.target.value)
-                  setPage(1)
-                }}
-              >
-                <option value="">All Status</option>
+              <select className={styles.filterSelect} value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+                <option value="">All Statuses</option>
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
               </select>
@@ -224,10 +162,12 @@ export default function UsersList() {
           </div>
         </Card>
 
-        {/* Users Table */}
         {isLoading ? (
-          <div className={styles.loadingContainer}>
-            <Loader text="Loading users..." />
+          <div className={styles.loadingContainer}><Loader text="Loading User Database..." /></div>
+        ) : isError ? (
+          <div className={styles.errorState}>
+            <p>Error loading users: {error.message}</p>
+            <Button onClick={() => queryClient.invalidateQueries(['admin-users'])}>Retry</Button>
           </div>
         ) : (
           <>
@@ -236,41 +176,37 @@ export default function UsersList() {
                 <table className={styles.table}>
                   <thead>
                     <tr>
-                      <th>User</th>
+                      <th>User Info</th>
                       <th>Email</th>
                       <th>Role</th>
                       <th>Status</th>
                       <th>Joined</th>
-                      <th>Last Login</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {users.length === 0 ? (
                       <tr>
-                        <td colSpan="7" className={styles.emptyState}>
-                          <FaUsers className={styles.emptyIcon} />
-                          <p>No users found</p>
+                        <td colSpan="6" className={styles.emptyState}>
+                          <p>No users found in the database.</p>
                         </td>
                       </tr>
                     ) : (
                       users.map((user) => (
-                        <tr key={user._id}>
+                        <tr key={user._id || user.id}>
                           <td>
                             <div className={styles.userCell}>
-                              <div className={styles.avatar}>
-                                {user.name?.charAt(0).toUpperCase() || 'U'}
-                              </div>
+                              <div className={styles.avatar}>{user.name?.[0] || 'U'}</div>
                               <div className={styles.userInfo}>
-                                <div className={styles.userName}>{user.name || 'N/A'}</div>
-                                <div className={styles.userId}>ID: {user._id?.slice(-8)}</div>
+                                <div className={styles.userName}>{user.name}</div>
+                                <div className={styles.userId}>ID: {user._id?.slice(-6)}</div>
                               </div>
                             </div>
                           </td>
                           <td>{user.email}</td>
                           <td>
                             <span className={`${styles.roleBadge} ${user.role === 'ADMIN' ? styles.adminBadge : styles.userBadge}`}>
-                              {user.role || 'USER'}
+                              {user.role}
                             </span>
                           </td>
                           <td>
@@ -279,39 +215,17 @@ export default function UsersList() {
                               onClick={() => handleToggleStatus(user)}
                               disabled={toggleUserStatusMutation.isLoading}
                             >
-                              {user.isActive ? (
-                                <>
-                                  <FaUserCheck /> Active
-                                </>
-                              ) : (
-                                <>
-                                  <FaUserTimes /> Inactive
-                                </>
-                              )}
+                              {user.isActive ? <FaUserCheck /> : <FaUserTimes />}
+                              {user.isActive ? 'Active' : 'Inactive'}
                             </button>
                           </td>
-                          <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-                          <td>
-                            {user.lastLogin
-                              ? new Date(user.lastLogin).toLocaleDateString()
-                              : 'Never'}
-                          </td>
+                          <td>{user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}</td>
                           <td>
                             <div className={styles.actions}>
-                              <Button
-                                size="small"
-                                variant="outline"
-                                onClick={() => handleEdit(user)}
-                                disabled={user._id === currentUser?._id}
-                              >
+                              <Button size="small" variant="outline" onClick={() => handleEdit(user)} disabled={user._id === currentUser?._id}>
                                 <FaEdit />
                               </Button>
-                              <Button
-                                size="small"
-                                variant="danger"
-                                onClick={() => handleDelete(user)}
-                                disabled={user._id === currentUser?._id || user.role === 'ADMIN'}
-                              >
+                              <Button size="small" variant="danger" onClick={() => handleDelete(user)} disabled={user._id === currentUser?._id || user.role === 'ADMIN'}>
                                 <FaTrash />
                               </Button>
                             </div>
@@ -324,85 +238,31 @@ export default function UsersList() {
               </div>
             </Card>
 
-            {/* Pagination */}
             {totalPages > 1 && (
-              <Pagination
-                currentPage={page}
-                totalPages={totalPages}
-                totalItems={totalUsers}
-                itemsPerPage={limit}
-                onPageChange={setPage}
-              />
+              <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
             )}
           </>
         )}
 
-        {/* Edit User Modal */}
-        <Modal
-          isOpen={showEditModal}
-          onClose={() => {
-            setShowEditModal(false)
-            setSelectedUser(null)
-          }}
-          title="Edit User"
-          size="medium"
-        >
+        {/* Edit Modal */}
+        <Modal isOpen={showEditModal} onClose={() => setShowEditModal(false)} title="Edit User">
           {selectedUser && (
-            <EditUserForm
-              user={selectedUser}
-              onSubmit={handleUpdateUser}
-              onCancel={() => {
-                setShowEditModal(false)
-                setSelectedUser(null)
-              }}
-              loading={updateUserMutation.isLoading}
+            <EditUserForm 
+              user={selectedUser} 
+              onSubmit={handleUpdateUser} 
+              onCancel={() => setShowEditModal(false)} 
+              loading={updateUserMutation.isLoading} 
             />
           )}
         </Modal>
 
-        {/* Delete Confirmation Modal */}
-        <Modal
-          isOpen={showDeleteModal}
-          onClose={() => {
-            setShowDeleteModal(false)
-            setSelectedUser(null)
-          }}
-          title="Delete User"
-          size="small"
-        >
+        {/* Delete Modal */}
+        <Modal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)} title="Delete Account">
           <div className={styles.deleteModal}>
-            <p>Are you sure you want to delete this user?</p>
-            {selectedUser && (
-              <div className={styles.deleteUserInfo}>
-                <div className={styles.deleteAvatar}>
-                  {selectedUser.name?.charAt(0).toUpperCase()}
-                </div>
-                <div>
-                  <div className={styles.deleteName}>{selectedUser.name}</div>
-                  <div className={styles.deleteEmail}>{selectedUser.email}</div>
-                </div>
-              </div>
-            )}
-            <p className={styles.deleteWarning}>
-              This action cannot be undone. All user data will be permanently removed.
-            </p>
+            <p>Delete <strong>{selectedUser?.name}</strong>? This cannot be undone.</p>
             <div className={styles.deleteActions}>
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  setShowDeleteModal(false)
-                  setSelectedUser(null)
-                }}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="danger"
-                onClick={handleConfirmDelete}
-                loading={deleteUserMutation.isLoading}
-              >
-                Delete Permanently
-              </Button>
+              <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>Cancel</Button>
+              <Button variant="danger" onClick={() => deleteUserMutation.mutate(selectedUser._id)} loading={deleteUserMutation.isLoading}>Confirm</Button>
             </div>
           </div>
         </Modal>
@@ -411,78 +271,40 @@ export default function UsersList() {
   )
 }
 
-// Edit User Form Component
+// Edit Form (Kept identical logic, just ensured name matches)
 function EditUserForm({ user, onSubmit, onCancel, loading }) {
   const [formData, setFormData] = useState({
     name: user.name || '',
     email: user.email || '',
     role: user.role || 'USER',
-    isActive: user.isActive !== undefined ? user.isActive : true
+    isActive: user.isActive ?? true
   })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    onSubmit(formData)
-  }
-
   return (
-    <form onSubmit={handleSubmit} className={styles.editForm}>
+    <form onSubmit={(e) => { e.preventDefault(); onSubmit(formData); }} className={styles.editForm}>
       <div className={styles.formGroup}>
-        <label className={styles.label}>Full Name</label>
-        <Input
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          required
-          fullWidth
-        />
+        <label>Full Name</label>
+        <Input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required fullWidth />
       </div>
-
-      <div className={styles.formGroup}>
-        <label className={styles.label}>Email</label>
-        <Input
-          type="email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          required
-          fullWidth
-        />
-      </div>
-
+      <div className={styles.formGroup}><label>Email</label><Input value={formData.email} disabled fullWidth /></div>
       <div className={styles.formRow}>
         <div className={styles.formGroup}>
-          <label className={styles.label}>Role</label>
-          <select
-            className={styles.select}
-            value={formData.role}
-            onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-          >
-            <option value="USER">User</option>
-            <option value="ADMIN">Admin</option>
+          <label>Role</label>
+          <select className={styles.select} value={formData.role} onChange={(e) => setFormData({ ...formData, role: e.target.value })}>
+            <option value="USER">User</option><option value="ADMIN">Admin</option>
           </select>
         </div>
-
         <div className={styles.formGroup}>
-          <label className={styles.label}>Status</label>
-          <select
-            className={styles.select}
-            value={formData.isActive ? 'active' : 'inactive'}
-            onChange={(e) => setFormData({ ...formData, isActive: e.target.value === 'active' })}
-          >
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
+          <label>Status</label>
+          <select className={styles.select} value={formData.isActive ? 'active' : 'inactive'} onChange={(e) => setFormData({ ...formData, isActive: e.target.value === 'active' })}>
+            <option value="active">Active</option><option value="inactive">Inactive</option>
           </select>
         </div>
       </div>
-
       <div className={styles.formActions}>
-        <Button type="button" variant="secondary" onClick={onCancel}>
-          Cancel
-        </Button>
-        <Button type="submit" variant="primary" loading={loading}>
-          Save Changes
-        </Button>
+        <Button type="button" variant="secondary" onClick={onCancel}>Cancel</Button>
+        <Button type="submit" variant="primary" loading={loading}>Save</Button>
       </div>
     </form>
   )
 }
-

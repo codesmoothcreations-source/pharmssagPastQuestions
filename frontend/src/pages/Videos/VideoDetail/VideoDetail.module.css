@@ -9,6 +9,27 @@
   margin-bottom: var(--spacing-lg);
 }
 
+/* Ensure the input looks exactly like your previous select */
+.select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 1rem;
+  outline: none;
+}
+
+.select:focus {
+  border-color: var(--primary-color, #ff0000);
+  box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
+}
+
+/* Optional: This hides the default browser arrow if you want a cleaner look */
+.select::-webkit-calendar-picker-indicator {
+  display: none !important;
+}
+
 .backLink {
   display: inline-flex;
   align-items: center;
